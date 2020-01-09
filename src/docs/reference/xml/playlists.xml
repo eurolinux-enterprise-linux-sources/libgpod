@@ -1,0 +1,811 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Playlists">
+<refmeta>
+<refentrytitle role="top_of_page">Playlists</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Playlists</refname>
+<refpurpose>Data structure to represent an iPod playlist</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-Playlist">Itdb_Playlist</link>;
+enum                <link linkend="ItdbPlaylistSortOrder">ItdbPlaylistSortOrder</link>;
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-new">itdb_playlist_new</link>                   (const <link linkend="gchar">gchar</link> *title,
+                                                         <link linkend="gboolean">gboolean</link> spl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-free">itdb_playlist_free</link>                  (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-duplicate">itdb_playlist_duplicate</link>             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-add">itdb_playlist_add</link>                   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="gint32">gint32</link> pos);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-move">itdb_playlist_move</link>                  (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="guint32">guint32</link> pos);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-remove">itdb_playlist_remove</link>                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-unlink">itdb_playlist_unlink</link>                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-add-track">itdb_playlist_add_track</link>             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track,
+                                                         <link linkend="gint32">gint32</link> pos);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-remove-track">itdb_playlist_remove_track</link>          (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-playlist-contains-track">itdb_playlist_contains_track</link>        (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track);
+<link linkend="guint32">guint32</link>             <link linkend="itdb-playlist-contain-track-number">itdb_playlist_contain_track_number</link>  (<link linkend="Itdb-Track">Itdb_Track</link> *tr);
+<link linkend="guint32">guint32</link>             <link linkend="itdb-playlist-tracks-number">itdb_playlist_tracks_number</link>         (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-mpl">itdb_playlist_mpl</link>                   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-playlist-is-mpl">itdb_playlist_is_mpl</link>                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-set-mpl">itdb_playlist_set_mpl</link>               (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-podcasts">itdb_playlist_podcasts</link>              (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-playlist-is-podcasts">itdb_playlist_is_podcasts</link>           (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-set-podcasts">itdb_playlist_set_podcasts</link>          (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-playlist-exists">itdb_playlist_exists</link>                (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-by-id">itdb_playlist_by_id</link>                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="guint64">guint64</link> id);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-by-nr">itdb_playlist_by_nr</link>                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="guint32">guint32</link> num);
+<link linkend="Itdb-Playlist">Itdb_Playlist</link>*      <link linkend="itdb-playlist-by-name">itdb_playlist_by_name</link>               (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="gchar">gchar</link> *name);
+<link linkend="void">void</link>                <link linkend="itdb-playlist-randomize">itdb_playlist_randomize</link>             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions and structures allow for adding and removing playlists,
+adding and removing tracks from playlists, sorting playlists, finding tracks in
+a playlist, etc.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-Playlist" role="struct"/>Itdb_Playlist</title>
+<indexterm><primary>Itdb_Playlist</primary></indexterm><programlisting>typedef struct {
+    Itdb_iTunesDB *itdb;
+    gchar *name;
+    guint8 type;
+    guint8 flag1;
+    guint8 flag2;
+    guint8 flag3;
+    gint  num;
+    GList *members;
+    gboolean is_spl;
+    time_t timestamp;
+    guint64 id;
+    guint32 sortorder;
+    guint32 podcastflag;
+    Itdb_SPLPref splpref;
+    Itdb_SPLRules splrules;
+    gpointer reserved100;
+    gpointer reserved101;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_Playlist;
+</programlisting>
+<para>
+Structure representing an iTunes Playlist</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>&nbsp;*<structfield>itdb</structfield>;</term>
+<listitem><simpara>               A pointer to the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> (for convenience)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link>&nbsp;*<structfield>name</structfield>;</term>
+<listitem><simpara>               The name of the playlist in UTF8
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>type</structfield>;</term>
+<listitem><simpara>               The playlist type (normal or master)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>flag1</structfield>;</term>
+<listitem><simpara>              Unknown, usually set to 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>flag2</structfield>;</term>
+<listitem><simpara>              Unknown, always set to 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>flag3</structfield>;</term>
+<listitem><simpara>              Unknown, always set to 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>num</structfield>;</term>
+<listitem><simpara>                The number of tracks in the playlist
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>members</structfield>;</term>
+<listitem><simpara>            A list of tracks in the playlist (<link linkend="Itdb-Track"><type>Itdb_Track</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gboolean">gboolean</link>&nbsp;<structfield>is_spl</structfield>;</term>
+<listitem><simpara>             True if the playlist is a smart playlist, otherwise
+                     false
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="time-t">time_t</link>&nbsp;<structfield>timestamp</structfield>;</term>
+<listitem><simpara>          When the playlist was created
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>id</structfield>;</term>
+<listitem><simpara>                 The playlist ID
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>sortorder</structfield>;</term>
+<listitem><simpara>          The playlist sort order (<link linkend="ItdbPlaylistSortOrder"><type>ItdbPlaylistSortOrder</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>podcastflag</structfield>;</term>
+<listitem><simpara>        This is set to 0 on normal playlists and to 1 for the
+                     Podcast playlist. If set to 1, the playlist will not be
+                     shown under 'Playlists' on the iPod, but as 'Podcasts'
+                     under the Music menu. The actual title of the Playlist
+                     does not matter. If more than one playlist is set to 1,
+                     they don't show up at all.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="Itdb-SPLPref">Itdb_SPLPref</link>&nbsp;<structfield>splpref</structfield>;</term>
+<listitem><simpara>            Smart playlist preferences (<link linkend="Itdb-SPLPref"><type>Itdb_SPLPref</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="Itdb-SPLRules">Itdb_SPLRules</link>&nbsp;<structfield>splrules</structfield>;</term>
+<listitem><simpara>           Smart playlist rules (<link linkend="Itdb-SPLRules"><type>Itdb_SPLRules</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved100</structfield>;</term>
+<listitem><simpara>        Reserved for MHOD100 implementation
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved101</structfield>;</term>
+<listitem><simpara>        Reserved for MHOD100 implementation
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>usertype</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>userdata</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</link>&nbsp;<structfield>userdata_duplicate</structfield>;</term>
+<listitem><simpara> A function to duplicate <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</link>&nbsp;<structfield>userdata_destroy</structfield>;</term>
+<listitem><simpara>   A function to free <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ItdbPlaylistSortOrder" role="enum" condition="since:0.1.3"/>enum ItdbPlaylistSortOrder</title>
+<indexterm role="0.1.3"><primary>ItdbPlaylistSortOrder</primary></indexterm><programlisting>typedef enum
+{
+    ITDB_PSO_MANUAL = 1,
+/*    ITDB_PSO_UNKNOWN = 2, */
+    ITDB_PSO_TITLE = 3,
+    ITDB_PSO_ALBUM = 4,
+    ITDB_PSO_ARTIST = 5,
+    ITDB_PSO_BIRATE = 6,
+    ITDB_PSO_GENRE = 7,
+    ITDB_PSO_FILETYPE = 8,
+    ITDB_PSO_TIME_MODIFIED = 9,
+    ITDB_PSO_TRACK_NR = 10,
+    ITDB_PSO_SIZE = 11,
+    ITDB_PSO_TIME = 12,  /* ? */
+    ITDB_PSO_YEAR = 13,
+    ITDB_PSO_SAMPLERATE = 14,
+    ITDB_PSO_COMMENT = 15,
+    ITDB_PSO_TIME_ADDED = 16,
+    ITDB_PSO_EQUALIZER = 17, /* ? */
+    ITDB_PSO_COMPOSER = 18,
+/*    ITDB_PSO_UNKNOWN = 19, */
+    ITDB_PSO_PLAYCOUNT = 20,
+    ITDB_PSO_TIME_PLAYED = 21,
+    ITDB_PSO_CD_NR = 22,
+    ITDB_PSO_RATING = 23,
+    ITDB_PSO_RELEASE_DATE = 24, /* used by podcasts */
+    ITDB_PSO_BPM = 25,
+    ITDB_PSO_GROUPING = 26,
+    ITDB_PSO_CATEGORY = 27,
+    ITDB_PSO_DESCRIPTION = 28
+} ItdbPlaylistSortOrder;
+</programlisting>
+<para>
+Playlist Sort Order</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><anchor id="ITDB-PSO-MANUAL:CAPS" role="constant"/><literal>ITDB_PSO_MANUAL</literal></term>
+<listitem><simpara>        Sort by playlist order (manual sort)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TITLE:CAPS" role="constant"/><literal>ITDB_PSO_TITLE</literal></term>
+<listitem><simpara>         Sort by track title
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-ALBUM:CAPS" role="constant"/><literal>ITDB_PSO_ALBUM</literal></term>
+<listitem><simpara>         Sort by album
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-ARTIST:CAPS" role="constant"/><literal>ITDB_PSO_ARTIST</literal></term>
+<listitem><simpara>        Sort by artist
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-BIRATE:CAPS" role="constant"/><literal>ITDB_PSO_BIRATE</literal></term>
+<listitem><simpara>        Sort by bitrate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-GENRE:CAPS" role="constant"/><literal>ITDB_PSO_GENRE</literal></term>
+<listitem><simpara>         Sort by genre
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-FILETYPE:CAPS" role="constant"/><literal>ITDB_PSO_FILETYPE</literal></term>
+<listitem><simpara>      Sort by filetype
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TIME-MODIFIED:CAPS" role="constant"/><literal>ITDB_PSO_TIME_MODIFIED</literal></term>
+<listitem><simpara> Sort by date modified
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TRACK-NR:CAPS" role="constant"/><literal>ITDB_PSO_TRACK_NR</literal></term>
+<listitem><simpara>      Sort by track number
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-SIZE:CAPS" role="constant"/><literal>ITDB_PSO_SIZE</literal></term>
+<listitem><simpara>          Sort by track size
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TIME:CAPS" role="constant"/><literal>ITDB_PSO_TIME</literal></term>
+<listitem><simpara>          Sort by track time
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-YEAR:CAPS" role="constant"/><literal>ITDB_PSO_YEAR</literal></term>
+<listitem><simpara>          Sort by year
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-SAMPLERATE:CAPS" role="constant"/><literal>ITDB_PSO_SAMPLERATE</literal></term>
+<listitem><simpara>    Sort by samplerate
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-COMMENT:CAPS" role="constant"/><literal>ITDB_PSO_COMMENT</literal></term>
+<listitem><simpara>       Sort by comments
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TIME-ADDED:CAPS" role="constant"/><literal>ITDB_PSO_TIME_ADDED</literal></term>
+<listitem><simpara>    Sort by date added
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-EQUALIZER:CAPS" role="constant"/><literal>ITDB_PSO_EQUALIZER</literal></term>
+<listitem><simpara>     Sort by equilizer
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-COMPOSER:CAPS" role="constant"/><literal>ITDB_PSO_COMPOSER</literal></term>
+<listitem><simpara>      Sort by composer
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-PLAYCOUNT:CAPS" role="constant"/><literal>ITDB_PSO_PLAYCOUNT</literal></term>
+<listitem><simpara>     Sort by playcount
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-TIME-PLAYED:CAPS" role="constant"/><literal>ITDB_PSO_TIME_PLAYED</literal></term>
+<listitem><simpara>   Sort by date last played
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-CD-NR:CAPS" role="constant"/><literal>ITDB_PSO_CD_NR</literal></term>
+<listitem><simpara>         Sort by disc number
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-RATING:CAPS" role="constant"/><literal>ITDB_PSO_RATING</literal></term>
+<listitem><simpara>        Sort by rating
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-RELEASE-DATE:CAPS" role="constant"/><literal>ITDB_PSO_RELEASE_DATE</literal></term>
+<listitem><simpara>  Sort by release date
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-BPM:CAPS" role="constant"/><literal>ITDB_PSO_BPM</literal></term>
+<listitem><simpara>           Sort by beats per minute
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-GROUPING:CAPS" role="constant"/><literal>ITDB_PSO_GROUPING</literal></term>
+<listitem><simpara>      Sort by grouping
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-CATEGORY:CAPS" role="constant"/><literal>ITDB_PSO_CATEGORY</literal></term>
+<listitem><simpara>      Sort by category
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-PSO-DESCRIPTION:CAPS" role="constant"/><literal>ITDB_PSO_DESCRIPTION</literal></term>
+<listitem><simpara>   Sort by description
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-new" role="function"/>itdb_playlist_new ()</title>
+<indexterm><primary>itdb_playlist_new</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_new                   (const <link linkend="gchar">gchar</link> *title,
+                                                         <link linkend="gboolean">gboolean</link> spl);</programlisting>
+<para>
+Creates a new playlist. If <parameter>spl</parameter> is TRUE, a smart playlist is
+generated. pl->id is set by <link linkend="itdb-playlist-add"><function>itdb_playlist_add()</function></link> when the playlist
+is added to an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>title</parameter>&nbsp;:</term>
+<listitem><simpara>  playlist title
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>spl</parameter>&nbsp;:</term>
+<listitem><simpara>    smart playlist flag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> which must be freed with
+<link linkend="itdb-playlist-free"><function>itdb_playlist_free()</function></link> after use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-free" role="function"/>itdb_playlist_free ()</title>
+<indexterm><primary>itdb_playlist_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_free                  (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Frees the memory used by playlist <parameter>pl</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-duplicate" role="function"/>itdb_playlist_duplicate ()</title>
+<indexterm><primary>itdb_playlist_duplicate</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_duplicate             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Duplicates an existing playlist. <parameter>pl_dup->id</parameter> is set to zero, so
+that it will be set to a unique value when adding it to an
+<link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>. The returned playlist won't be associated with an
+<link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> that you'll have to
+free with <link linkend="itdb-playlist-free"><function>itdb_playlist_free()</function></link> when you no longer need it.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-add" role="function"/>itdb_playlist_add ()</title>
+<indexterm><primary>itdb_playlist_add</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_add                   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="gint32">gint32</link> pos);</programlisting>
+<para>
+Adds playlist <parameter>pl</parameter> to the database <parameter>itdb</parameter> at position <parameter>pos</parameter> (-1 for
+"append to end"). A unique id is created if <parameter>pl->id</parameter> is equal to
+zero. After calling this function, <parameter>itdb</parameter> manages the memory of <parameter>pl</parameter>,
+which means you no longer need to explicitly call
+<link linkend="itdb-playlist-free"><function>itdb_playlist_free()</function></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>    position to insert <parameter>pl</parameter> at
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-move" role="function"/>itdb_playlist_move ()</title>
+<indexterm><primary>itdb_playlist_move</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_move                  (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="guint32">guint32</link> pos);</programlisting>
+<para>
+Moves playlist <parameter>pl</parameter> to position <parameter>pos</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>    new position
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-remove" role="function"/>itdb_playlist_remove ()</title>
+<indexterm><primary>itdb_playlist_remove</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_remove                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Removes <parameter>pl</parameter> from the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> it's associated with
+and frees memory</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-unlink" role="function"/>itdb_playlist_unlink ()</title>
+<indexterm><primary>itdb_playlist_unlink</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_unlink                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Remove <parameter>pl</parameter> from the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> it's associated with but do not
+free memory. <parameter>pl->itdb</parameter> is set to NULL after this function returns</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-add-track" role="function"/>itdb_playlist_add_track ()</title>
+<indexterm><primary>itdb_playlist_add_track</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_add_track             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track,
+                                                         <link linkend="gint32">gint32</link> pos);</programlisting>
+<para>
+Adds <parameter>track</parameter> to <parameter>pl</parameter> at position <parameter>pos</parameter> (-1 to append at the end)</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>track</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Track"><type>Itdb_Track</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>    position to insert <parameter>track</parameter> at
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-remove-track" role="function"/>itdb_playlist_remove_track ()</title>
+<indexterm><primary>itdb_playlist_remove_track</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_remove_track          (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track);</programlisting>
+<para>
+Removes <parameter>track</parameter> from <parameter>pl</parameter>. If <parameter>pl</parameter> is NULL, removes <parameter>track</parameter> from the
+master playlist. If <parameter>track</parameter> can't be found in <parameter>pl</parameter>, nothing happens.
+If after removing <parameter>track</parameter>, <parameter>pl</parameter> is empty, it's not removed from the
+database The memory used by <parameter>track</parameter> isn't freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>track</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Track"><type>Itdb_Track</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-contains-track" role="function"/>itdb_playlist_contains_track ()</title>
+<indexterm><primary>itdb_playlist_contains_track</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_playlist_contains_track        (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl,
+                                                         <link linkend="Itdb-Track">Itdb_Track</link> *track);</programlisting>
+<para>
+Checks if <parameter>track</parameter> is in <parameter>pl</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>track</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Track"><type>Itdb_Track</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if <parameter>track</parameter> is in <parameter>pl</parameter>, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-contain-track-number" role="function"/>itdb_playlist_contain_track_number ()</title>
+<indexterm><primary>itdb_playlist_contain_track_number</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             itdb_playlist_contain_track_number  (<link linkend="Itdb-Track">Itdb_Track</link> *tr);</programlisting>
+<para>
+Counts the number of playlist <parameter>track</parameter> is a member of (not including
+the master playlist)</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tr</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Track"><type>Itdb_Track</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of playlist containing <parameter>track</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-tracks-number" role="function"/>itdb_playlist_tracks_number ()</title>
+<indexterm><primary>itdb_playlist_tracks_number</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             itdb_playlist_tracks_number         (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Counts the number of tracks in <parameter>pl</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of tracks in <parameter>pl</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-mpl" role="function"/>itdb_playlist_mpl ()</title>
+<indexterm><primary>itdb_playlist_mpl</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_mpl                   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Gets the master playlist of <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the master playlist of <parameter>itdb</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-is-mpl" role="function" condition="since:0.1.6"/>itdb_playlist_is_mpl ()</title>
+<indexterm role="0.1.6"><primary>itdb_playlist_is_mpl</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_playlist_is_mpl                (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Checks if <parameter>pl</parameter> is the master playlist</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if <parameter>pl</parameter> is the master playlist, FALSE otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.1.6
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-set-mpl" role="function" condition="since:0.2.0"/>itdb_playlist_set_mpl ()</title>
+<indexterm role="0.2.0"><primary>itdb_playlist_set_mpl</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_set_mpl               (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Sets <parameter>pl</parameter> to be a master playlist</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.2.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-podcasts" role="function" condition="since:0.1.6"/>itdb_playlist_podcasts ()</title>
+<indexterm role="0.1.6"><primary>itdb_playlist_podcasts</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_podcasts              (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Gets the podcasts playlist of <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the podcasts playlist of <parameter>itdb</parameter>, or NULL if there is
+not one
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.1.6
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-is-podcasts" role="function" condition="since:0.1.6"/>itdb_playlist_is_podcasts ()</title>
+<indexterm role="0.1.6"><primary>itdb_playlist_is_podcasts</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_playlist_is_podcasts           (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Checks if <parameter>pl</parameter> is the podcasts playlist</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if <parameter>pl</parameter> is the podcasts playlist, FALSE otherwise
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.1.6
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-set-podcasts" role="function" condition="since:0.2.0"/>itdb_playlist_set_podcasts ()</title>
+<indexterm role="0.2.0"><primary>itdb_playlist_set_podcasts</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_set_podcasts          (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Set <parameter>pl</parameter> to be a podcasts playlist</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.2.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-exists" role="function"/>itdb_playlist_exists ()</title>
+<indexterm><primary>itdb_playlist_exists</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_playlist_exists                (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Checks if <parameter>pl</parameter> is present in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if <parameter>pl</parameter> exists in <parameter>itdb</parameter>, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-by-id" role="function"/>itdb_playlist_by_id ()</title>
+<indexterm><primary>itdb_playlist_by_id</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_by_id                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="guint64">guint64</link> id);</programlisting>
+<para>
+Looks up a playlist whose ID is <parameter>id</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&nbsp;:</term>
+<listitem><simpara>     ID of the playlist to look for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> with ID <parameter>id</parameter> or NULL if there is no
+such playlist.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-by-nr" role="function"/>itdb_playlist_by_nr ()</title>
+<indexterm><primary>itdb_playlist_by_nr</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_by_nr                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="guint32">guint32</link> num);</programlisting>
+<para>
+Gets the playlist at the given position in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>    the position of the playlist, counting from 0
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>, or NULL if there is no playlist
+at <parameter>pos</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-by-name" role="function"/>itdb_playlist_by_name ()</title>
+<indexterm><primary>itdb_playlist_by_name</primary></indexterm><programlisting><link linkend="Itdb-Playlist">Itdb_Playlist</link>*      itdb_playlist_by_name               (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Searches a playlist whose name is <parameter>name</parameter> in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>   name of the playlist to look for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the first <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> with name <parameter>name</parameter>, NULL if
+there is no such playlist
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlist-randomize" role="function"/>itdb_playlist_randomize ()</title>
+<indexterm><primary>itdb_playlist_randomize</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_playlist_randomize             (<link linkend="Itdb-Playlist">Itdb_Playlist</link> *pl);</programlisting>
+<para>
+Randomizes <parameter>pl</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pl</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> to randomize
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

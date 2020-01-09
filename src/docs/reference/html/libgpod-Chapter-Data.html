@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter Data</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="libgpod Reference Manual">
+<link rel="up" href="ch01.html" title="iPod database components">
+<link rel="prev" href="libgpod-Artwork.html" title="Artwork">
+<link rel="next" href="libgpod-Device.html" title="Device">
+<meta name="generator" content="GTK-Doc V1.9 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="itunesdb.html" title="Part&#160;I.&#160;iPod database">
+<link rel="chapter" href="ch01.html" title="iPod database components">
+<link rel="part" href="photodb.html" title="Part&#160;II.&#160;Photo database">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libgpod-Artwork.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgpod Reference Manual</th>
+<td><a accesskey="n" href="libgpod-Device.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2680707" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2730404" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libgpod-Chapter-Data"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2680707"></a><span class="refentrytitle">Chapter Data</span>
+</h2>
+<p>Chapter Data &#8212; Data structure to store chapter data for tracks</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+                    <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a>;
+                    <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a>;
+<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a>*       <a class="link" href="libgpod-Chapter-Data.html#itdb-chapter-new">itdb_chapter_new</a>                    (void);
+<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a>*       <a class="link" href="libgpod-Chapter-Data.html#itdb-chapter-duplicate">itdb_chapter_duplicate</a>              (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);
+void                <a class="link" href="libgpod-Chapter-Data.html#itdb-chapter-free">itdb_chapter_free</a>                   (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);
+<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a>*   <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-new">itdb_chapterdata_new</a>                (void);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-add-chapter">itdb_chapterdata_add_chapter</a>        (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a> startpos,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *chaptertitle);
+<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a>*   <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-duplicate">itdb_chapterdata_duplicate</a>          (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);
+void                <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-remove-chapter">itdb_chapterdata_remove_chapter</a>     (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata,
+                                                         <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);
+void                <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-remove-chapters">itdb_chapterdata_remove_chapters</a>    (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);
+void                <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-free">itdb_chapterdata_free</a>               (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2730404"></a><h2>Description</h2>
+<p>
+Chapters allow for a large file to be divided into sections.  The start and stop
+points in the track are defined here, as well as the title for each chapter.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2730422"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2729895"></a><h3>
+<a name="Itdb-Chapter"></a>Itdb_Chapter</h3>
+<a class="indexterm" name="id2729910"></a><pre class="programlisting">typedef struct {
+    guint32 startpos;
+    gchar *chaptertitle;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+} Itdb_Chapter;
+</pre>
+<p>
+Structure representing an iTunesDB Chapter</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>startpos</code></em>;</span></p></td>
+<td>      The start position of the chapter in ms. The first chapter
+                begins at 1.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>&#160;*<em class="structfield"><code>chaptertitle</code></em>;</span></p></td>
+<td>  The chapter title in UTF8
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int1</code></em>;</span></p></td>
+<td> Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int2</code></em>;</span></p></td>
+<td> Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved1</code></em>;</span></p></td>
+<td>     Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved2</code></em>;</span></p></td>
+<td>     Reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2740762"></a><h3>
+<a name="Itdb-Chapterdata"></a>Itdb_Chapterdata</h3>
+<a class="indexterm" name="id2740776"></a><pre class="programlisting">typedef struct {
+    GList *chapters;
+    guint32 unk024;
+    guint32 unk028;
+    guint32 unk032;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+} Itdb_Chapterdata;
+</pre>
+<p>
+Structure representing iTunesDB Chapter data</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>&#160;*<em class="structfield"><code>chapters</code></em>;</span></p></td>
+<td>      A list of chapters (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a>)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>unk024</code></em>;</span></p></td>
+<td>        Unknown
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>unk028</code></em>;</span></p></td>
+<td>        Unknown
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>unk032</code></em>;</span></p></td>
+<td>        Unknown
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int1</code></em>;</span></p></td>
+<td> Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int2</code></em>;</span></p></td>
+<td> Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved1</code></em>;</span></p></td>
+<td>     Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved2</code></em>;</span></p></td>
+<td>     Reserved for future use
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734118"></a><h3>
+<a name="itdb-chapter-new"></a>itdb_chapter_new ()</h3>
+<a class="indexterm" name="id2734133"></a><pre class="programlisting"><a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a>*       itdb_chapter_new                    (void);</pre>
+<p>
+Creates a new <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> newly allocated <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a> to be freed with <a class="link" href="libgpod-Chapter-Data.html#itdb-chapter-free"><code class="function">itdb_chapter_free()</code></a>
+after use
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734204"></a><h3>
+<a name="itdb-chapter-duplicate"></a>itdb_chapter_duplicate ()</h3>
+<a class="indexterm" name="id2734217"></a><pre class="programlisting"><a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a>*       itdb_chapter_duplicate              (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);</pre>
+<p>
+Duplicates the data contained in <em class="parameter"><code>chapter</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chapter</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a newly allocated copy of <em class="parameter"><code>chapter</code></em> to be freed with
+<a class="link" href="libgpod-Chapter-Data.html#itdb-chapter-free"><code class="function">itdb_chapter_free()</code></a> after use
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2733627"></a><h3>
+<a name="itdb-chapter-free"></a>itdb_chapter_free ()</h3>
+<a class="indexterm" name="id2733642"></a><pre class="programlisting">void                itdb_chapter_free                   (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);</pre>
+<p>
+Frees the memory used by <em class="parameter"><code>chapter</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chapter</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2733710"></a><h3>
+<a name="itdb-chapterdata-new"></a>itdb_chapterdata_new ()</h3>
+<a class="indexterm" name="id2733724"></a><pre class="programlisting"><a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a>*   itdb_chapterdata_new                (void);</pre>
+<p>
+Creates a new <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a new <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a> to be freed with
+              <a class="link" href="libgpod-Chapter-Data.html#itdb-chapterdata-free"><code class="function">itdb_chapterdata_free()</code></a> when no longer needed
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2733793"></a><h3>
+<a name="itdb-chapterdata-add-chapter"></a>itdb_chapterdata_add_chapter ()</h3>
+<a class="indexterm" name="id2733808"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_chapterdata_add_chapter        (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a> startpos,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *chaptertitle);</pre>
+<p>
+Appends a chapter to existing chapters in <em class="parameter"><code>chapterdata</code></em>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chapterdata</code></em>&#160;:</span></p></td>
+<td>  an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>startpos</code></em>&#160;:</span></p></td>
+<td>     chapter start time in milliseconds
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chaptertitle</code></em>&#160;:</span></p></td>
+<td> chapter title
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE if the chapter could be successfully added, FALSE
+otherwise.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2738991"></a><h3>
+<a name="itdb-chapterdata-duplicate"></a>itdb_chapterdata_duplicate ()</h3>
+<a class="indexterm" name="id2739005"></a><pre class="programlisting"><a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a>*   itdb_chapterdata_duplicate          (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);</pre>
+<p>
+Duplicates <em class="parameter"><code>chapterdata</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chapterdata</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a new copy of <em class="parameter"><code>chapterdata</code></em>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2739090"></a><h3>
+<a name="itdb-chapterdata-remove-chapter"></a>itdb_chapterdata_remove_chapter ()</h3>
+<a class="indexterm" name="id2739106"></a><pre class="programlisting">void                itdb_chapterdata_remove_chapter     (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata,
+                                                         <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter">Itdb_Chapter</a> *chapter);</pre>
+<p>
+Removes <em class="parameter"><code>chapter</code></em> from <em class="parameter"><code>chapterdata</code></em>. The memory used by <em class="parameter"><code>chapter</code></em> is freed.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chapterdata</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chapter</code></em>&#160;:</span></p></td>
+<td>     an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapter"><span class="type">Itdb_Chapter</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2739217"></a><h3>
+<a name="itdb-chapterdata-remove-chapters"></a>itdb_chapterdata_remove_chapters ()</h3>
+<a class="indexterm" name="id2739233"></a><pre class="programlisting">void                itdb_chapterdata_remove_chapters    (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);</pre>
+<p>
+Removes all chapters from <em class="parameter"><code>chapterdata</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chapterdata</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2739302"></a><h3>
+<a name="itdb-chapterdata-free"></a>itdb_chapterdata_free ()</h3>
+<a class="indexterm" name="id2739316"></a><pre class="programlisting">void                itdb_chapterdata_free               (<a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata">Itdb_Chapterdata</a> *chapterdata);</pre>
+<p>
+Frees memory used by <em class="parameter"><code>chapterdata</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>chapterdata</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Chapter-Data.html#Itdb-Chapterdata"><span class="type">Itdb_Chapterdata</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2739386"></a><div class="refsect2" lang="en"><a name="id2739387"></a></div>
+<hr>
+<div class="refsect2" lang="en"><a name="id2739388"></a></div>
+</div>
+</div>
+</body>
+</html>

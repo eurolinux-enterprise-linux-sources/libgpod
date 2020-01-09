@@ -1,0 +1,545 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Artwork">
+<refmeta>
+<refentrytitle role="top_of_page">Artwork</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Artwork</refname>
+<refpurpose>Data structure to store iPod artwork (album covers)</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-Artwork">Itdb_Artwork</link>;
+<link linkend="Itdb-Artwork">Itdb_Artwork</link>*       <link linkend="itdb-artwork-new">itdb_artwork_new</link>                    (void);
+<link linkend="Itdb-Artwork">Itdb_Artwork</link>*       <link linkend="itdb-artwork-duplicate">itdb_artwork_duplicate</link>              (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);
+<link linkend="void">void</link>                <link linkend="itdb-artwork-free">itdb_artwork_free</link>                   (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);
+<link linkend="gpointer">gpointer</link>            <link linkend="itdb-artwork-get-pixbuf">itdb_artwork_get_pixbuf</link>             (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-artwork-set-thumbnail">itdb_artwork_set_thumbnail</link>          (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-artwork-set-thumbnail-from-data">itdb_artwork_set_thumbnail_from_data</link>
+                                                        (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         const <link linkend="guchar">guchar</link> *image_data,
+                                                         <link linkend="gsize">gsize</link> image_data_len,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-artwork-set-thumbnail-from-pixbuf">itdb_artwork_set_thumbnail_from_pixbuf</link>
+                                                        (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         <link linkend="gpointer">gpointer</link> pixbuf,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>                <link linkend="itdb-artwork-remove-thumbnails">itdb_artwork_remove_thumbnails</link>      (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);
+                    <link linkend="Itdb-Thumb">Itdb_Thumb</link>;
+<link linkend="Itdb-Thumb">Itdb_Thumb</link>*         <link linkend="itdb-thumb-duplicate">itdb_thumb_duplicate</link>                (<link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);
+<link linkend="void">void</link>                <link linkend="itdb-thumb-free">itdb_thumb_free</link>                     (<link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);
+<link linkend="gpointer">gpointer</link>            <link linkend="itdb-thumb-to-pixbuf-at-size">itdb_thumb_to_pixbuf_at_size</link>        (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);
+<link linkend="GList">GList</link>*              <link linkend="itdb-thumb-to-pixbufs">itdb_thumb_to_pixbufs</link>               (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions and structures are for adding, changing, and removing
+album/track artwork.  For working with photos, see the
+<link linkend="photodb">Photo database</link> section.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-Artwork" role="struct" condition="since:0.3.0"/>Itdb_Artwork</title>
+<indexterm role="0.3.0"><primary>Itdb_Artwork</primary></indexterm><programlisting>typedef struct {
+    Itdb_Thumb *thumbnail;
+    guint32 id;
+    guint64 dbid;
+    gint32  unk028;
+    guint32 rating;
+    gint32  unk036;
+    time_t  creation_date;
+    time_t  digitized_date;
+    guint32 artwork_size;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_Artwork;
+</programlisting>
+<para>
+Structure representing artwork in an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> or <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link></para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="Itdb-Thumb">Itdb_Thumb</link>&nbsp;*<structfield>thumbnail</structfield>;</term>
+<listitem><simpara>          An <link linkend="Itdb-Thumb"><type>Itdb_Thumb</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>id</structfield>;</term>
+<listitem><simpara>                 Artwork id used by photoalbums.  This starts at 0x40 and
+                     is set automatically when the ArtworkDB or PhotoDB is
+                     written
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>dbid</structfield>;</term>
+<listitem><simpara>               The dbid of associated track.  Used internally by
+                     libgpod.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>unk028</structfield>;</term>
+<listitem><simpara>             Unknown
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>rating</structfield>;</term>
+<listitem><simpara>             Rating from iPhoto * 20 (PhotoDB only)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>unk036</structfield>;</term>
+<listitem><simpara>             Unknown
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="time-t">time_t</link>&nbsp;<structfield>creation_date</structfield>;</term>
+<listitem><simpara>      Date the image file was created (PhotoDB only)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="time-t">time_t</link>&nbsp;<structfield>digitized_date</structfield>;</term>
+<listitem><simpara>     Date the image was taken (EXIF information, PhotoDB
+                     only)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>artwork_size</structfield>;</term>
+<listitem><simpara>       Size in bytes of the original source image (PhotoDB
+                     only -- don't touch in case of ArtworkDB!)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>usertype</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>userdata</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</link>&nbsp;<structfield>userdata_duplicate</structfield>;</term>
+<listitem><simpara> A function to duplicate <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</link>&nbsp;<structfield>userdata_destroy</structfield>;</term>
+<listitem><simpara>   A function to free <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-new" role="function" condition="since:0.3.0"/>itdb_artwork_new ()</title>
+<indexterm role="0.3.0"><primary>itdb_artwork_new</primary></indexterm><programlisting><link linkend="Itdb-Artwork">Itdb_Artwork</link>*       itdb_artwork_new                    (void);</programlisting>
+<para>
+Creates a new <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link> to be freed with <link linkend="itdb-artwork-free"><function>itdb_artwork_free()</function></link> when
+no longer needed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-duplicate" role="function" condition="since:0.3.0"/>itdb_artwork_duplicate ()</title>
+<indexterm role="0.3.0"><primary>itdb_artwork_duplicate</primary></indexterm><programlisting><link linkend="Itdb-Artwork">Itdb_Artwork</link>*       itdb_artwork_duplicate              (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);</programlisting>
+<para>
+Duplicates <parameter>artwork</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new copy of <parameter>artwork</parameter>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-free" role="function" condition="since:0.3.0"/>itdb_artwork_free ()</title>
+<indexterm role="0.3.0"><primary>itdb_artwork_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_artwork_free                   (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);</programlisting>
+<para>
+Frees memory used by <parameter>artwork</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-get-pixbuf" role="function" condition="since:0.7.0"/>itdb_artwork_get_pixbuf ()</title>
+<indexterm role="0.7.0"><primary>itdb_artwork_get_pixbuf</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>            itdb_artwork_get_pixbuf             (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);</programlisting>
+<para>
+Returns a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> representing the thumbnail stored in <parameter>artwork</parameter>
+scaling it if appropriate. If either height or width is -1, then the
+biggest unscaled thumbnail available will be returned</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara>    an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara>      width of the pixbuf to retrieve, -1 for the biggest
+             possible size and 0 for the smallest possible size (with no
+             scaling)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&nbsp;:</term>
+<listitem><simpara>     height of the pixbuf to retrieve, -1 for the biggest possible
+             size and 0 for the smallest possible size (with no scaling)
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> that must be unreffed when no longer used, NULL
+if no artwork could be found or if libgpod is compiled without GdkPixbuf
+support
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-set-thumbnail" role="function" condition="since:0.7.0"/>itdb_artwork_set_thumbnail ()</title>
+<indexterm role="0.7.0"><primary>itdb_artwork_set_thumbnail</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_artwork_set_thumbnail          (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Appends a thumbnail of type <parameter>type</parameter> to existing thumbnails in <parameter>artwork</parameter>. No
+data is read from <parameter>filename</parameter> yet, the file will be when <parameter>artwork</parameter> is saved to
+disk. <parameter>filename</parameter> must still exist when that happens.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara>    an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara>   image file to use to create the thumbnail
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>      return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <parameter>error</parameter> is set appropriately.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-set-thumbnail-from-data" role="function" condition="since:0.7.0"/>itdb_artwork_set_thumbnail_from_data ()</title>
+<indexterm role="0.7.0"><primary>itdb_artwork_set_thumbnail_from_data</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_artwork_set_thumbnail_from_data
+                                                        (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         const <link linkend="guchar">guchar</link> *image_data,
+                                                         <link linkend="gsize">gsize</link> image_data_len,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Set a thumbnail in <parameter>artwork</parameter>. No data is processed yet. This will be done when
+<parameter>artwork</parameter> is saved to disk.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara>        an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>image_data</parameter>&nbsp;:</term>
+<listitem><simpara>     data used to create the thumbnail (the raw contents of
+                 an image file)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>image_data_len</parameter>&nbsp;:</term>
+<listitem><simpara> length of above data block
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>       angle by which the image should be rotated
+                 counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>          return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <parameter>error</parameter> is set appropriately.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-set-thumbnail-from-pixbuf" role="function" condition="since:0.7.0"/>itdb_artwork_set_thumbnail_from_pixbuf ()</title>
+<indexterm role="0.7.0"><primary>itdb_artwork_set_thumbnail_from_pixbuf</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_artwork_set_thumbnail_from_pixbuf
+                                                        (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork,
+                                                         <link linkend="gpointer">gpointer</link> pixbuf,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Set a thumbnail in <parameter>artwork</parameter>. No data is generated from <parameter>pixbuf</parameter> yet, it will
+be done when <parameter>artwork</parameter> is saved to disk. <parameter>pixbuf</parameter> is ref'ed by this function,
+but is not copied, so it should not be modified before the database is saved.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara>    an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixbuf</parameter>&nbsp;:</term>
+<listitem><simpara>     <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> to use to create the thumbnail
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>      return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <parameter>error</parameter> is set appropriately.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-artwork-remove-thumbnails" role="function" condition="since:0.3.0"/>itdb_artwork_remove_thumbnails ()</title>
+<indexterm role="0.3.0"><primary>itdb_artwork_remove_thumbnails</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_artwork_remove_thumbnails      (<link linkend="Itdb-Artwork">Itdb_Artwork</link> *artwork);</programlisting>
+<para>
+Removes all thumbnails from <parameter>artwork</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>artwork</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-Thumb" role="struct" condition="since:0.3.0"/>Itdb_Thumb</title>
+<indexterm role="0.3.0"><primary>Itdb_Thumb</primary></indexterm><programlisting>typedef struct {
+    ItdbThumbDataType data_type;
+    guint rotation;
+} Itdb_Thumb;
+</programlisting>
+<para>
+This is an opaque structure representing a thumbnail to be
+transferred to the ipod or read from the ipod.</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="ItdbThumbDataType">ItdbThumbDataType</link>&nbsp;<structfield>data_type</structfield>;</term>
+<listitem><simpara> The type of data (file, memory, pixbuf, ipod, etc.)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint">guint</link>&nbsp;<structfield>rotation</structfield>;</term>
+<listitem><simpara>  Angle by which the image is rotated counterclockwise
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-thumb-duplicate" role="function" condition="since:0.3.0"/>itdb_thumb_duplicate ()</title>
+<indexterm role="0.3.0"><primary>itdb_thumb_duplicate</primary></indexterm><programlisting><link linkend="Itdb-Thumb">Itdb_Thumb</link>*         itdb_thumb_duplicate                (<link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);</programlisting>
+<para>
+Duplicates the data contained in <parameter>thumb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>thumb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Thumb"><type>Itdb_Thumb</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated copy of <parameter>thumb</parameter> to be freed with
+<link linkend="itdb-thumb-free"><function>itdb_thumb_free()</function></link> after use
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-thumb-free" role="function" condition="since:0.3.0"/>itdb_thumb_free ()</title>
+<indexterm role="0.3.0"><primary>itdb_thumb_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_thumb_free                     (<link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);</programlisting>
+<para>
+Frees the memory used by <parameter>thumb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>thumb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Thumb"><type>Itdb_Thumb</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.3.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-thumb-to-pixbuf-at-size" role="function" condition="since:0.7.0"/>itdb_thumb_to_pixbuf_at_size ()</title>
+<indexterm role="0.7.0"><primary>itdb_thumb_to_pixbuf_at_size</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>            itdb_thumb_to_pixbuf_at_size        (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb,
+                                                         <link linkend="gint">gint</link> width,
+                                                         <link linkend="gint">gint</link> height);</programlisting>
+<para>
+Converts <parameter>thumb</parameter> to a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+</para>
+<para>
+<note>
+Since we want to have gdk-pixbuf dependency optional, a generic
+gpointer is returned which you have to cast to a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> using
+<link linkend="GDK-PIXBUF:CAPS"><function>GDK_PIXBUF()</function></link> yourself.
+</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>thumb</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Thumb"><type>Itdb_Thumb</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara>  width of the pixbuf to retrieve, -1 for the biggest
+         possible size and 0 for the smallest possible size (with no scaling)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&nbsp;:</term>
+<listitem><simpara> height of the pixbuf to retrieve, -1 for the biggest possible size
+         and 0 for the smallest possible size (with no scaling)
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> that must be unreffed with <link linkend="gdk-pixbuf-unref"><function>gdk_pixbuf_unref()</function></link>
+after use, or NULL if the creation of the gdk-pixbuf failed or if
+libgpod was compiled without gdk-pixbuf support.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-thumb-to-pixbufs" role="function" condition="since:0.7.0"/>itdb_thumb_to_pixbufs ()</title>
+<indexterm role="0.7.0"><primary>itdb_thumb_to_pixbufs</primary></indexterm><programlisting><link linkend="GList">GList</link>*              itdb_thumb_to_pixbufs               (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="Itdb-Thumb">Itdb_Thumb</link> *thumb);</programlisting>
+<para>
+Converts <parameter>thumb</parameter> to a <link linkend="GList"><type>GList</type></link> of <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>. The returned <link linkend="GList"><type>GList</type></link> will
+generally contain only 1 element, the full-size pixbuf associated with
+<parameter>thumb</parameter>, but when the artwork has been read from the ipod and hasn't been
+modified from the library, then the returned <link linkend="GList"><type>GList</type></link> will contain several
+<link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> corresponding to the various thumbnail sizes that were
+written to the iPod database.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>thumb</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Thumb"><type>Itdb_Thumb</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a <link linkend="GList"><type>GList</type></link> of <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> which are associated with <parameter>thumb</parameter>, NULL
+if the pixbuf was invalid or if libgpod is compiled without gdk-pixbuf
+support. The <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> must be unreffed with <link linkend="gdk-pixbuf-unref"><function>gdk_pixbuf_unref()</function></link> after use
+and the <link linkend="GList"><type>GList</type></link> must be freed with <link linkend="g-list-free"><function>g_list_free()</function></link>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="photodb">Photo database</link>
+</para>
+</refsect1>
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

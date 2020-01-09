@@ -1,0 +1,988 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Device">
+<refmeta>
+<refentrytitle role="top_of_page">Device</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Device</refname>
+<refpurpose>Data structure holding information about the iPod (model, mount point, etc.)</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-Device">Itdb_Device</link>;
+<link linkend="Itdb-Device">Itdb_Device</link>*        <link linkend="itdb-device-new">itdb_device_new</link>                     (void);
+<link linkend="void">void</link>                <link linkend="itdb-device-free">itdb_device_free</link>                    (<link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="void">void</link>                <link linkend="itdb-device-set-mountpoint">itdb_device_set_mountpoint</link>          (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *mp);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-supports-artwork">itdb_device_supports_artwork</link>        (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-supports-chapter-image">itdb_device_supports_chapter_image</link>  (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-supports-photo">itdb_device_supports_photo</link>          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-supports-podcast">itdb_device_supports_podcast</link>        (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-supports-video">itdb_device_supports_video</link>          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+                    <link linkend="Itdb-IpodInfo">Itdb_IpodInfo</link>;
+const <link linkend="Itdb-IpodInfo">Itdb_IpodInfo</link>* <link linkend="itdb-device-get-ipod-info">itdb_device_get_ipod_info</link>          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);
+const <link linkend="Itdb-IpodInfo">Itdb_IpodInfo</link>* <link linkend="itdb-info-get-ipod-info-table">itdb_info_get_ipod_info_table</link>      (void);
+enum                <link linkend="Itdb-IpodGeneration">Itdb_IpodGeneration</link>;
+const <link linkend="gchar">gchar</link>*        <link linkend="itdb-info-get-ipod-generation-string">itdb_info_get_ipod_generation_string</link>
+                                                        (<link linkend="Itdb-IpodGeneration">Itdb_IpodGeneration</link> generation);
+enum                <link linkend="Itdb-IpodModel">Itdb_IpodModel</link>;
+const <link linkend="gchar">gchar</link>*        <link linkend="itdb-info-get-ipod-model-name-string">itdb_info_get_ipod_model_name_string</link>
+                                                        (<link linkend="Itdb-IpodModel">Itdb_IpodModel</link> model);
+                    <link linkend="Itdb-ArtworkFormat">Itdb_ArtworkFormat</link>;
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-read-sysinfo">itdb_device_read_sysinfo</link>            (<link linkend="Itdb-Device">Itdb_Device</link> *device);
+<link linkend="gchar">gchar</link>*              <link linkend="itdb-device-get-sysinfo">itdb_device_get_sysinfo</link>             (const <link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *field);
+<link linkend="void">void</link>                <link linkend="itdb-device-set-sysinfo">itdb_device_set_sysinfo</link>             (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *field,
+                                                         const <link linkend="gchar">gchar</link> *value);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-device-write-sysinfo">itdb_device_write_sysinfo</link>           (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="GError">GError</link> **error);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions are for reading and setting information about the iPod.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-Device" role="struct" condition="since:0.4.0"/>Itdb_Device</title>
+<indexterm role="0.4.0"><primary>Itdb_Device</primary></indexterm><programlisting>typedef struct {
+    gchar *mountpoint;
+    gint   musicdirs;
+    guint  byte_order;
+    GHashTable *sysinfo;
+    SysInfoIpodProperties *sysinfo_extended;
+    gboolean sysinfo_changed;
+    gint timezone_shift;
+} Itdb_Device;
+</programlisting>
+<para>
+Structure representing an iPod device</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gchar">gchar</link>&nbsp;*<structfield>mountpoint</structfield>;</term>
+<listitem><simpara>         The mountpoint of the iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>musicdirs</structfield>;</term>
+<listitem><simpara>          The number of /iPod_Control/Music/F.. dirs
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint">guint</link>&nbsp;<structfield>byte_order</structfield>;</term>
+<listitem><simpara>         G_LITTLE_ENDIAN "regular" endianness G_BIG_ENDIAN
+                     "reversed" endianness (e.g. mobile phone iTunesDBs)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GHashTable">GHashTable</link>&nbsp;*<structfield>sysinfo</structfield>;</term>
+<listitem><simpara>            A hash with key/value pairs of all entries in
+                     Device/SysInfo
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="SysInfoIpodProperties">SysInfoIpodProperties</link>&nbsp;*<structfield>sysinfo_extended</structfield>;</term>
+<listitem><simpara>   The parsed content of SysInfoExtended, which can be NULL
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gboolean">gboolean</link>&nbsp;<structfield>sysinfo_changed</structfield>;</term>
+<listitem><simpara>    True if the sysinfo hash been changed by the user, false
+                     otherwise.  (see <link linkend="itdb-set-sysinfo"><function>itdb_set_sysinfo()</function></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>timezone_shift</structfield>;</term>
+<listitem><simpara>     The difference in seconds between the current timezone
+                     and UTC
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-new" role="function" condition="since:0.4.0"/>itdb_device_new ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_new</primary></indexterm><programlisting><link linkend="Itdb-Device">Itdb_Device</link>*        itdb_device_new                     (void);</programlisting>
+<para>
+Creates a new <link linkend="Itdb-Device"><type>Itdb_Device</type></link> structure</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated <link linkend="Itdb-Device"><type>Itdb_Device</type></link> which must be freed with
+<link linkend="itdb-device-free"><function>itdb_device_free()</function></link> when no longer needed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-free" role="function" condition="since:0.4.0"/>itdb_device_free ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_device_free                    (<link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Frees memory used by <parameter>device</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-set-mountpoint" role="function" condition="since:0.4.0"/>itdb_device_set_mountpoint ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_set_mountpoint</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_device_set_mountpoint          (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *mp);</programlisting>
+<para>
+Sets the mountpoint of <parameter>device</parameter> to <parameter>mp</parameter> and update the cached device 
+information (in particular, re-read the SysInfo file)
+</para>
+<para>
+<warning><para>Calling this function invalidates all the artwork in the
+<link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> database using this <link linkend="Itdb-Device"><type>Itdb_Device</type></link>. Trying to access this
+artwork will result in memory corruption. It's recommended to use
+<link linkend="itdb-set-mountpoint"><function>itdb_set_mountpoint()</function></link> instead which will clean the invalidated artwork
+for you.</para></warning>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mp</parameter>&nbsp;:</term>
+<listitem><simpara>     the new mount point
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-supports-artwork" role="function" condition="since:0.5.0"/>itdb_device_supports_artwork ()</title>
+<indexterm role="0.5.0"><primary>itdb_device_supports_artwork</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_supports_artwork        (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Indicates whether <parameter>device</parameter> can display artwork or not. When dealing
+with a non-art capable iPod, no artwork data will be written to the
+iPod so you can spare calls to the artwork handling methods.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> true if <parameter>device</parameter> can display artwork.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.5.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-supports-chapter-image" role="function" condition="since:0.7.2"/>itdb_device_supports_chapter_image ()</title>
+<indexterm role="0.7.2"><primary>itdb_device_supports_chapter_image</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_supports_chapter_image  (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Indicates whether <parameter>device</parameter> can display chapter images or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> true if <parameter>device</parameter> can display chapter images.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-supports-photo" role="function" condition="since:0.5.0"/>itdb_device_supports_photo ()</title>
+<indexterm role="0.5.0"><primary>itdb_device_supports_photo</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_supports_photo          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Indicates whether <parameter>device</parameter> can display photos or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> true if <parameter>device</parameter> can display photos.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.5.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-supports-podcast" role="function" condition="since:0.7.2"/>itdb_device_supports_podcast ()</title>
+<indexterm role="0.7.2"><primary>itdb_device_supports_podcast</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_supports_podcast        (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Indicates whether <parameter>device</parameter> can play podcasts or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> true if <parameter>device</parameter> can play podcasts.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-supports-video" role="function" condition="since:0.7.0"/>itdb_device_supports_video ()</title>
+<indexterm role="0.7.0"><primary>itdb_device_supports_video</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_supports_video          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Indicates whether <parameter>device</parameter> can play videos or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> true if <parameter>device</parameter> can play videos.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-IpodInfo" role="struct" condition="since:0.4.0"/>Itdb_IpodInfo</title>
+<indexterm role="0.4.0"><primary>Itdb_IpodInfo</primary></indexterm><programlisting>typedef struct {
+    const gchar *model_number;
+    const double capacity;
+    const Itdb_IpodModel ipod_model;
+    const Itdb_IpodGeneration ipod_generation;
+    const guint musicdirs;
+    /* reserved for future use */
+    const gint32 reserved_int1;
+    const gint32 reserved_int2;
+    gconstpointer reserved1;
+    gconstpointer reserved2;
+} Itdb_IpodInfo;
+</programlisting>
+<para>
+Structure representing information about an iPod</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term>const&nbsp;<link linkend="gchar">gchar</link>&nbsp;*<structfield>model_number</structfield>;</term>
+<listitem><simpara>    The model number.  This is abbreviated.  If the first
+                  character is not numeric, it is ommited. e.g.
+                  "MA350 -> A350", "M9829 -> 9829"
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="double">double</link>&nbsp;<structfield>capacity</structfield>;</term>
+<listitem><simpara>        The iPod's capacity in gigabytes
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="Itdb-IpodModel">Itdb_IpodModel</link>&nbsp;<structfield>ipod_model</structfield>;</term>
+<listitem><simpara>      The iPod model
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="Itdb-IpodGeneration">Itdb_IpodGeneration</link>&nbsp;<structfield>ipod_generation</structfield>;</term>
+<listitem><simpara> The iPod generation
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="guint">guint</link>&nbsp;<structfield>musicdirs</structfield>;</term>
+<listitem><simpara>       The number of music (Fnn) dirs created by iTunes. The
+                  exact number seems to be version dependent. Therefore, the
+                  numbers here represent a mixture of reported values and
+                  common sense.  Note: this number does not necessarily
+                  represent the number of dirs present on a particular iPod.
+                  It is used when setting up a new iPod from scratch.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>   Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term>const&nbsp;<link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>   Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gconstpointer">gconstpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>       Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gconstpointer">gconstpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>       Reserved for future use
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-get-ipod-info" role="function" condition="since:0.4.0"/>itdb_device_get_ipod_info ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_get_ipod_info</primary></indexterm><programlisting>const <link linkend="Itdb-IpodInfo">Itdb_IpodInfo</link>* itdb_device_get_ipod_info          (const <link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Retrieve the <link linkend="Itdb-IpodInfo"><type>Itdb_IpodInfo</type></link> entry for this iPod</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the <link linkend="Itdb-IpodInfo"><type>Itdb_IpodInfo</type></link> entry for this iPod
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-info-get-ipod-info-table" role="function" condition="since:0.4.0"/>itdb_info_get_ipod_info_table ()</title>
+<indexterm role="0.4.0"><primary>itdb_info_get_ipod_info_table</primary></indexterm><programlisting>const <link linkend="Itdb-IpodInfo">Itdb_IpodInfo</link>* itdb_info_get_ipod_info_table      (void);</programlisting>
+<para>
+Return a pointer to the start of valid iPod model descriptions,
+which is an array of <link linkend="Itdb-IpodInfo"><type>Itdb_IpodInfo</type></link> entries. This can be useful if you
+want to build a list of all iPod models known to the current libgpod.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the array of <link linkend="Itdb-IpodInfo"><type>Itdb_IpodInfo</type></link> entries.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-IpodGeneration" role="enum" condition="since:0.4.0"/>enum Itdb_IpodGeneration</title>
+<indexterm role="0.4.0"><primary>Itdb_IpodGeneration</primary></indexterm><programlisting>typedef enum {
+    ITDB_IPOD_GENERATION_UNKNOWN,
+    ITDB_IPOD_GENERATION_FIRST,
+    ITDB_IPOD_GENERATION_SECOND,
+    ITDB_IPOD_GENERATION_THIRD,
+    ITDB_IPOD_GENERATION_FOURTH,
+    ITDB_IPOD_GENERATION_PHOTO,
+    ITDB_IPOD_GENERATION_MOBILE,
+    ITDB_IPOD_GENERATION_MINI_1,
+    ITDB_IPOD_GENERATION_MINI_2,
+    ITDB_IPOD_GENERATION_SHUFFLE_1,
+    ITDB_IPOD_GENERATION_SHUFFLE_2,
+    ITDB_IPOD_GENERATION_SHUFFLE_3,
+    ITDB_IPOD_GENERATION_NANO_1,
+    ITDB_IPOD_GENERATION_NANO_2,
+    ITDB_IPOD_GENERATION_NANO_3,
+    ITDB_IPOD_GENERATION_NANO_4,
+    ITDB_IPOD_GENERATION_VIDEO_1,
+    ITDB_IPOD_GENERATION_VIDEO_2,
+    ITDB_IPOD_GENERATION_CLASSIC_1,
+    ITDB_IPOD_GENERATION_CLASSIC_2,
+    ITDB_IPOD_GENERATION_TOUCH_1,
+    ITDB_IPOD_GENERATION_IPHONE_1,
+} Itdb_IpodGeneration;
+</programlisting>
+<para>
+iPod generation information
+</para>
+<para>
+See http://support.apple.com/kb/HT1353 and http://en.wikipedia.org/wiki/IPod
+for more details.</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-UNKNOWN:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_UNKNOWN</literal></term>
+<listitem><simpara>   Unknown iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-FIRST:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_FIRST</literal></term>
+<listitem><simpara>     First Generation iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-SECOND:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_SECOND</literal></term>
+<listitem><simpara>    Second Generation iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-THIRD:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_THIRD</literal></term>
+<listitem><simpara>     Third Generation iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-FOURTH:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_FOURTH</literal></term>
+<listitem><simpara>    Fourth Generation iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-PHOTO:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_PHOTO</literal></term>
+<listitem><simpara>     Photo iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-MOBILE:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_MOBILE</literal></term>
+<listitem><simpara>    Mobile iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-MINI-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_MINI_1</literal></term>
+<listitem><simpara>    First Generation iPod Mini
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-MINI-2:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_MINI_2</literal></term>
+<listitem><simpara>    Second Generation iPod Mini
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-SHUFFLE-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_SHUFFLE_1</literal></term>
+<listitem><simpara> First Generation iPod Shuffle
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-SHUFFLE-2:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_SHUFFLE_2</literal></term>
+<listitem><simpara> Second Generation iPod Shuffle
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-SHUFFLE-3:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_SHUFFLE_3</literal></term>
+<listitem><simpara> Third Generation iPod Shuffle
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-NANO-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_NANO_1</literal></term>
+<listitem><simpara>    First Generation iPod Nano
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-NANO-2:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_NANO_2</literal></term>
+<listitem><simpara>    Second Generation iPod Nano
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-NANO-3:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_NANO_3</literal></term>
+<listitem><simpara>    Third Generation iPod Nano
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-NANO-4:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_NANO_4</literal></term>
+<listitem><simpara>    Fourth Generation iPod Nano
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-VIDEO-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_VIDEO_1</literal></term>
+<listitem><simpara>   First Generation iPod Video (aka 5g)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-VIDEO-2:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_VIDEO_2</literal></term>
+<listitem><simpara>   Second Generation iPod Video (aka 5.5g)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-CLASSIC-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_CLASSIC_1</literal></term>
+<listitem><simpara> First Generation iPod Classic
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-CLASSIC-2:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_CLASSIC_2</literal></term>
+<listitem><simpara> Second Generation iPod Classic
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-TOUCH-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_TOUCH_1</literal></term>
+<listitem><simpara>   First Generation iPod Touch
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-GENERATION-IPHONE-1:CAPS" role="constant"/><literal>ITDB_IPOD_GENERATION_IPHONE_1</literal></term>
+<listitem><simpara>  First Generation iPhone
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-info-get-ipod-generation-string" role="function" condition="since:0.4.0"/>itdb_info_get_ipod_generation_string ()</title>
+<indexterm role="0.4.0"><primary>itdb_info_get_ipod_generation_string</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>*        itdb_info_get_ipod_generation_string
+                                                        (<link linkend="Itdb-IpodGeneration">Itdb_IpodGeneration</link> generation);</programlisting>
+<para>
+Return the iPod's generic generation name, like "First Generation",
+"Mobile Phone"...</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>generation</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-IpodGeneration"><type>Itdb_IpodGeneration</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the generation name. This is a static
+string and must not be <link linkend="g-free"><function>g_free()</function></link>d.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-IpodModel" role="enum" condition="since:0.4.0"/>enum Itdb_IpodModel</title>
+<indexterm role="0.4.0"><primary>Itdb_IpodModel</primary></indexterm><programlisting>typedef enum {
+    ITDB_IPOD_MODEL_INVALID,
+    ITDB_IPOD_MODEL_UNKNOWN,
+    ITDB_IPOD_MODEL_COLOR,
+    ITDB_IPOD_MODEL_COLOR_U2,
+    ITDB_IPOD_MODEL_REGULAR,
+    ITDB_IPOD_MODEL_REGULAR_U2,
+    ITDB_IPOD_MODEL_MINI,
+    ITDB_IPOD_MODEL_MINI_BLUE,
+    ITDB_IPOD_MODEL_MINI_PINK,
+    ITDB_IPOD_MODEL_MINI_GREEN,
+    ITDB_IPOD_MODEL_MINI_GOLD,
+    ITDB_IPOD_MODEL_SHUFFLE,
+    ITDB_IPOD_MODEL_NANO_WHITE,
+    ITDB_IPOD_MODEL_NANO_BLACK,
+    ITDB_IPOD_MODEL_VIDEO_WHITE,
+    ITDB_IPOD_MODEL_VIDEO_BLACK,
+    ITDB_IPOD_MODEL_MOBILE_1,
+    ITDB_IPOD_MODEL_VIDEO_U2,
+    ITDB_IPOD_MODEL_NANO_SILVER,
+    ITDB_IPOD_MODEL_NANO_BLUE,
+    ITDB_IPOD_MODEL_NANO_GREEN,
+    ITDB_IPOD_MODEL_NANO_PINK,
+    ITDB_IPOD_MODEL_NANO_RED,
+    ITDB_IPOD_MODEL_NANO_YELLOW,
+    ITDB_IPOD_MODEL_NANO_PURPLE,
+    ITDB_IPOD_MODEL_NANO_ORANGE,
+    ITDB_IPOD_MODEL_IPHONE_1,
+    ITDB_IPOD_MODEL_SHUFFLE_SILVER,
+    ITDB_IPOD_MODEL_SHUFFLE_PINK,
+    ITDB_IPOD_MODEL_SHUFFLE_BLUE,
+    ITDB_IPOD_MODEL_SHUFFLE_GREEN,
+    ITDB_IPOD_MODEL_SHUFFLE_ORANGE,
+    ITDB_IPOD_MODEL_SHUFFLE_PURPLE,
+    ITDB_IPOD_MODEL_SHUFFLE_RED,
+    ITDB_IPOD_MODEL_CLASSIC_SILVER,
+    ITDB_IPOD_MODEL_CLASSIC_BLACK,
+    ITDB_IPOD_MODEL_TOUCH_BLACK,
+} Itdb_IpodModel;
+</programlisting>
+<para>
+iPod model information</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-INVALID:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_INVALID</literal></term>
+<listitem><simpara>        Invalid model
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-UNKNOWN:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_UNKNOWN</literal></term>
+<listitem><simpara>        Unknown model
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-COLOR:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_COLOR</literal></term>
+<listitem><simpara>          Color iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-COLOR-U2:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_COLOR_U2</literal></term>
+<listitem><simpara>       Color iPod (U2)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-REGULAR:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_REGULAR</literal></term>
+<listitem><simpara>        Regular iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-REGULAR-U2:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_REGULAR_U2</literal></term>
+<listitem><simpara>     Regular iPod (U2)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MINI:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MINI</literal></term>
+<listitem><simpara>           iPod Mini
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MINI-BLUE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MINI_BLUE</literal></term>
+<listitem><simpara>      iPod Mini (Blue)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MINI-PINK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MINI_PINK</literal></term>
+<listitem><simpara>      iPod Mini (Pink)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MINI-GREEN:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MINI_GREEN</literal></term>
+<listitem><simpara>     iPod Mini (Green)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MINI-GOLD:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MINI_GOLD</literal></term>
+<listitem><simpara>      iPod Mini (Gold)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE</literal></term>
+<listitem><simpara>        iPod Shuffle
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-WHITE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_WHITE</literal></term>
+<listitem><simpara>     iPod Nano (White)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-BLACK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_BLACK</literal></term>
+<listitem><simpara>     iPod Nano (Black)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-VIDEO-WHITE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_VIDEO_WHITE</literal></term>
+<listitem><simpara>    iPod Video (White)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-VIDEO-BLACK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_VIDEO_BLACK</literal></term>
+<listitem><simpara>    iPod Video (Black)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-MOBILE-1:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_MOBILE_1</literal></term>
+<listitem><simpara>       Mobile iPod
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-VIDEO-U2:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_VIDEO_U2</literal></term>
+<listitem><simpara>       iPod Video (U2)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-SILVER:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_SILVER</literal></term>
+<listitem><simpara>    iPod Nano (Silver)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-BLUE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_BLUE</literal></term>
+<listitem><simpara>      iPod Nano (Blue)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-GREEN:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_GREEN</literal></term>
+<listitem><simpara>     iPod Nano (Green)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-PINK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_PINK</literal></term>
+<listitem><simpara>      iPod Nano (Pink)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-RED:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_RED</literal></term>
+<listitem><simpara>       iPod Nano (Red)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-YELLOW:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_YELLOW</literal></term>
+<listitem><simpara>    iPod Nano (Yellow)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-PURPLE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_PURPLE</literal></term>
+<listitem><simpara>    iPod Nano (Purple)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-NANO-ORANGE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_NANO_ORANGE</literal></term>
+<listitem><simpara>    iPod Nano (Orange)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-IPHONE-1:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_IPHONE_1</literal></term>
+<listitem><simpara>       iPhone
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-SILVER:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_SILVER</literal></term>
+<listitem><simpara> iPod Shuffle (Silver)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-PINK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_PINK</literal></term>
+<listitem><simpara>   iPod Shuffle (Pink)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-BLUE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_BLUE</literal></term>
+<listitem><simpara>   iPod Shuffle (Blue)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-GREEN:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_GREEN</literal></term>
+<listitem><simpara>  iPod Shuffle (Green)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-ORANGE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_ORANGE</literal></term>
+<listitem><simpara> iPod Shuffle (Orange)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-PURPLE:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_PURPLE</literal></term>
+<listitem><simpara> iPod Shuffle (Purple)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-SHUFFLE-RED:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_SHUFFLE_RED</literal></term>
+<listitem><simpara>    iPod Shuffle (Red)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-CLASSIC-SILVER:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_CLASSIC_SILVER</literal></term>
+<listitem><simpara> iPod Classic (Silver)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-CLASSIC-BLACK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_CLASSIC_BLACK</literal></term>
+<listitem><simpara>  iPod Classic (Black)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-IPOD-MODEL-TOUCH-BLACK:CAPS" role="constant"/><literal>ITDB_IPOD_MODEL_TOUCH_BLACK</literal></term>
+<listitem><simpara>    iPod Touch (Black)
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-info-get-ipod-model-name-string" role="function" condition="since:0.4.0"/>itdb_info_get_ipod_model_name_string ()</title>
+<indexterm role="0.4.0"><primary>itdb_info_get_ipod_model_name_string</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>*        itdb_info_get_ipod_model_name_string
+                                                        (<link linkend="Itdb-IpodModel">Itdb_IpodModel</link> model);</programlisting>
+<para>
+Return the iPod's generic model name, like "Color", "Nano"...</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-IpodModel"><type>Itdb_IpodModel</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the model name. This is a static string
+and must not be <link linkend="g-free"><function>g_free()</function></link>d.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-ArtworkFormat" role="struct"/>Itdb_ArtworkFormat</title>
+<indexterm><primary>Itdb_ArtworkFormat</primary></indexterm><programlisting>typedef struct {
+        gint format_id;
+        gint width;
+        gint height;
+        ItdbThumbFormat format;
+        gint32 padding;
+        gboolean crop;
+        gint rotation;
+        guchar back_color[4];
+
+        gint display_width;
+        gboolean interlaced;
+        gboolean align_row_bytes;
+        gint color_adjustment;
+        gdouble gamma;
+        gint associated_format;
+} Itdb_ArtworkFormat;
+</programlisting>
+<para>
+Structure representing the characteristics of the thumbnails to
+write to a given .ithmb file. The format of the structure is based
+on the way artwork formats are written to SysInfoExtended.</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>format_id</structfield>;</term>
+<listitem><simpara>          Unique ID for the format (generally a 4 digit int)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>width</structfield>;</term>
+<listitem><simpara>              Width of the thumbnail
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>height</structfield>;</term>
+<listitem><simpara>             Height of the thumbnail
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbThumbFormat">ItdbThumbFormat</link>&nbsp;<structfield>format</structfield>;</term>
+<listitem><simpara>             Pixel format of the thumbnail (RGB, YUV, ...)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>padding</structfield>;</term>
+<listitem><simpara>            Number of bytes of padding to add after the thumbnail
+                     (not found in SysInfoExtended -- added for
+                     compatibility with hardcoded artwork formats)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gboolean">gboolean</link>&nbsp;<structfield>crop</structfield>;</term>
+<listitem><simpara>               Indicates if the thumbnail is to be cropped
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>rotation</structfield>;</term>
+<listitem><simpara>           Degrees to rotate the thumbnail
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guchar">guchar</link>&nbsp;<structfield>back_color</structfield>[4];</term>
+<listitem><simpara>         Background color for the thumbnail
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>display_width</structfield>;</term>
+<listitem><simpara>      Width at which the thumbnail will be displayed
+                     (not currently used)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gboolean">gboolean</link>&nbsp;<structfield>interlaced</structfield>;</term>
+<listitem><simpara>         If TRUE, the thumbnails are interlaced
+                     (not currently used)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gboolean">gboolean</link>&nbsp;<structfield>align_row_bytes</structfield>;</term>
+<listitem><simpara>    If TRUE, each pixel row must be aligned a 2-byte boundary
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>color_adjustment</structfield>;</term>
+<listitem><simpara>   Color adjustment for the thumbnails
+                     (not currently used)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gdouble">gdouble</link>&nbsp;<structfield>gamma</structfield>;</term>
+<listitem><simpara>              Gamma value for the thumbails
+                     (not currently used)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link>&nbsp;<structfield>associated_format</structfield>;</term>
+<listitem><simpara>  Unknown (not currently used)
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-read-sysinfo" role="function" condition="since:0.4.0"/>itdb_device_read_sysinfo ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_read_sysinfo</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_read_sysinfo            (<link linkend="Itdb-Device">Itdb_Device</link> *device);</programlisting>
+<para>
+Reads the SysInfo file and stores information in device->sysinfo for
+later use.
+</para>
+<para>
+<warning><para>Calling this function invalidates all the artwork in the
+<link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> database using this <link linkend="Itdb-Device"><type>Itdb_Device</type></link>. Trying to access this
+artwork will result in memory corruption. Directly calling this function
+shouldn't ever be needed and it will be deprecated
+soon.</para></warning>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if file could be read, FALSE otherwise 
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-get-sysinfo" role="function" condition="since:0.4.0"/>itdb_device_get_sysinfo ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_get_sysinfo</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*              itdb_device_get_sysinfo             (const <link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *field);</programlisting>
+<para>
+Retrieve specified field from the SysInfo file.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara>  field to retrive information from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the information associated with <parameter>field</parameter>, or NULL if <parameter>field</parameter>
+couldn't be found. <link linkend="g-free"><function>g_free()</function></link> after use
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-set-sysinfo" role="function" condition="since:0.4.0"/>itdb_device_set_sysinfo ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_set_sysinfo</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_device_set_sysinfo             (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         const <link linkend="gchar">gchar</link> *field,
+                                                         const <link linkend="gchar">gchar</link> *value);</programlisting>
+<para>
+Set specified field. It can later be written to the iPod using
+<link linkend="itdb-device-write-sysinfo"><function>itdb_device_write_sysinfo()</function></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara>  field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>  value to set (or NULL to remove the field).
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-device-write-sysinfo" role="function" condition="since:0.4.0"/>itdb_device_write_sysinfo ()</title>
+<indexterm role="0.4.0"><primary>itdb_device_write_sysinfo</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_device_write_sysinfo           (<link linkend="Itdb-Device">Itdb_Device</link> *device,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Fills the SysInfo file with information in device->sysinfo. Note:
+no directories are created if not already existent.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>device</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Device"><type>Itdb_Device</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>  return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if file could be read, FALSE otherwise 
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

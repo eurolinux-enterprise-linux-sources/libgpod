@@ -1,0 +1,1105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Low-level functions</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="libgpod Reference Manual">
+<link rel="up" href="itunesdb.html" title="Part&#160;I.&#160;iPod database">
+<link rel="prev" href="libgpod-Time-handling.html" title="Time handling">
+<link rel="next" href="ch01.html" title="iPod database components">
+<meta name="generator" content="GTK-Doc V1.9 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="itunesdb.html" title="Part&#160;I.&#160;iPod database">
+<link rel="chapter" href="ch01.html" title="iPod database components">
+<link rel="part" href="photodb.html" title="Part&#160;II.&#160;Photo database">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libgpod-Time-handling.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="itunesdb.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgpod Reference Manual</th>
+<td><a accesskey="n" href="ch01.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2703180" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2706707" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libgpod-Low-level-functions"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2703180"></a><span class="refentrytitle">Low-level functions</span>
+</h2>
+<p>Low-level functions &#8212; Low-level functions which shouldn't be needed in normal situations</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir">itdb_get_control_dir</a>                (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-itunes-dir">itdb_get_itunes_dir</a>                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-music-dir">itdb_get_music_dir</a>                  (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-artwork-dir">itdb_get_artwork_dir</a>                (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-device-dir">itdb_get_device_dir</a>                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-photos-dir">itdb_get_photos_dir</a>                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-itunesdb-path">itdb_get_itunesdb_path</a>              (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-itunessd-path">itdb_get_itunessd_path</a>              (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-artworkdb-path">itdb_get_artworkdb_path</a>             (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-photodb-path">itdb_get_photodb_path</a>               (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-photos-thumb-dir">itdb_get_photos_thumb_dir</a>           (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-get-path">itdb_get_path</a>                       (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *dir,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *file);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-resolve-path">itdb_resolve_path</a>                   (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *root,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> * const *components);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Low-level-functions.html#itdb-cp">itdb_cp</a>                             (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *from_file,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *to_file,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              <a class="link" href="libgpod-Low-level-functions.html#itdb-cp-get-dest-filename">itdb_cp_get_dest_filename</a>           (<a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a> *track,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a>*         <a class="link" href="libgpod-Low-level-functions.html#itdb-cp-finalize">itdb_cp_finalize</a>                    (<a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a> *track,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *dest_filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a>*      <a class="link" href="libgpod-Low-level-functions.html#itdb-parse-file">itdb_parse_file</a>                     (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Low-level-functions.html#itdb-write-file">itdb_write_file</a>                     (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Low-level-functions.html#itdb-shuffle-write">itdb_shuffle_write</a>                  (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Low-level-functions.html#itdb-shuffle-write-file">itdb_shuffle_write_file</a>             (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a>*      <a class="link" href="libgpod-Low-level-functions.html#itdb-duplicate">itdb_duplicate</a>                      (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2706707"></a><h2>Description</h2>
+<p>
+These functions are not normally needed but are avalable to allow for finer
+control over the iPod database.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2706724"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2706735"></a><h3>
+<a name="itdb-get-control-dir"></a>itdb_get_control_dir ()</h3>
+<a class="indexterm" name="id2706749"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_control_dir                (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Get the i*_Control directory. Observed values are 'iPod_Control'
+for standard iPods and 'iTunes/iTunes_Control' for mobile
+applications.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the control dir or NULL if non-existent. Must
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2706828"></a><h3>
+<a name="itdb-get-itunes-dir"></a>itdb_get_itunes_dir ()</h3>
+<a class="indexterm" name="id2706843"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_itunes_dir                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the iTunes directory (containing the iTunesDB) by first
+calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'iTunes'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the iTunes directory or NULL if non-existent.
+Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2721743"></a><h3>
+<a name="itdb-get-music-dir"></a>itdb_get_music_dir ()</h3>
+<a class="indexterm" name="id2721755"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_music_dir                  (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the Music directory (containing the Fnn dirs) by first
+calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'Music'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the Music directory or NULL if
+non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2721835"></a><h3>
+<a name="itdb-get-artwork-dir"></a>itdb_get_artwork_dir ()</h3>
+<a class="indexterm" name="id2721849"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_artwork_dir                (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the Artwork directory (containing the ArtworDB) by
+first calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'Artwork'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the Artwork directory or NULL if
+non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2721936"></a><h3>
+<a name="itdb-get-device-dir"></a>itdb_get_device_dir ()</h3>
+<a class="indexterm" name="id2721950"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_device_dir                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the Device directory (containing the SysInfo file) by
+first calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'Device'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the Device directory or NULL if
+non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722038"></a><h3>
+<a name="itdb-get-photos-dir"></a>itdb_get_photos_dir ()</h3>
+<a class="indexterm" name="id2722052"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_photos_dir                 (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the Photo directory by
+first calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'Photos'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> mountpoint of iPod
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the Artwork directory or NULL if
+non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722139"></a><h3>
+<a name="itdb-get-itunesdb-path"></a>itdb_get_itunesdb_path ()</h3>
+<a class="indexterm" name="id2722152"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_itunesdb_path              (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve a path to the iTunesDB</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the iTunesDB or NULL if non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a>
+after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722229"></a><h3>
+<a name="itdb-get-itunessd-path"></a>itdb_get_itunessd_path ()</h3>
+<a class="indexterm" name="id2722243"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_itunessd_path              (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve a path to the iTunesSD</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the iTunesSD or NULL if non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a>
+after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722320"></a><h3>
+<a name="itdb-get-artworkdb-path"></a>itdb_get_artworkdb_path ()</h3>
+<a class="indexterm" name="id2722333"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_artworkdb_path             (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve a path to the ArtworkDB</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the ArtworkDB or NULL if non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a>
+after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722410"></a><h3>
+<a name="itdb-get-photodb-path"></a>itdb_get_photodb_path ()</h3>
+<a class="indexterm" name="id2722424"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_photodb_path               (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve a path to the Photo DB</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the PhotoDB or NULL if non-existent. Must
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722502"></a><h3>
+<a name="itdb-get-photos-thumb-dir"></a>itdb_get_photos_thumb_dir ()</h3>
+<a class="indexterm" name="id2722516"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_photos_thumb_dir           (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint);</pre>
+<p>
+Retrieve the Photo Thumbnail directory by
+first calling <a class="link" href="libgpod-Low-level-functions.html#itdb-get-control-dir"><code class="function">itdb_get_control_dir()</code></a> and then adding 'Photos/Thumbs'</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> the iPod mountpoint
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the Artwork directory or NULL if
+non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a> after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722603"></a><h3>
+<a name="itdb-get-path"></a>itdb_get_path ()</h3>
+<a class="indexterm" name="id2722618"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_get_path                       (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *dir,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *file);</pre>
+<p>
+Retrieve a path to the <em class="parameter"><code>file</code></em> in <em class="parameter"><code>dir</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dir</code></em>&#160;:</span></p></td>
+<td>    a directory
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em>&#160;:</span></p></td>
+<td>   a file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to the <em class="parameter"><code>file</code></em> or NULL if non-existent. Must <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a>
+after use.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.4.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722733"></a><h3>
+<a name="itdb-resolve-path"></a>itdb_resolve_path ()</h3>
+<a class="indexterm" name="id2722746"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_resolve_path                   (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *root,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> * const *components);</pre>
+<p>
+Resolve the path to a track on the iPod
+</p>
+<p>
+We start by assuming that the iPod mount point exists.  Then, for
+each component c of <em class="parameter"><code>track-&gt;ipod_path</code></em>, we try to find an entry d in
+good_path that is case-insensitively equal to c.  If we find d, we
+append d to good_path and make the result the new good_path.
+Otherwise, we quit and return NULL.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>root</code></em>&#160;:</span></p></td>
+<td> in local encoding
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>components</code></em>&#160;:</span></p></td>
+<td> in utf8
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> path to track on the iPod or NULL.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722841"></a><h3>
+<a name="itdb-cp"></a>itdb_cp ()</h3>
+<a class="indexterm" name="id2722853"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_cp                             (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *from_file,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *to_file,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Copy file <em class="parameter"><code>from_file</code></em> to <em class="parameter"><code>to_file</code></em>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>from_file</code></em>&#160;:</span></p></td>
+<td>  source file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>to_file</code></em>&#160;:</span></p></td>
+<td>    destination file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE on success, FALSE on error, in which case <em class="parameter"><code>error</code></em> is
+set accordingly.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2722982"></a><h3>
+<a name="itdb-cp-get-dest-filename"></a>itdb_cp_get_dest_filename ()</h3>
+<a class="indexterm" name="id2722996"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*              itdb_cp_get_dest_filename           (<a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a> *track,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Creates a valid filename on the iPod where <em class="parameter"><code>filename</code></em> can be copied.
+</p>
+<p>
+You must provide either <em class="parameter"><code>track</code></em> or <em class="parameter"><code>mountpoint</code></em>. Providing <em class="parameter"><code>track</code></em> is
+not thread-safe (accesses track-&gt;itdb-&gt;device and may even write to
+track-&gt;itdb-&gt;device). Providing <em class="parameter"><code>mountpoint</code></em> is thread-safe but
+slightly slower because the number of music directories is counted
+each time the function is called.
+</p>
+<p>
+You can use <a class="link" href="libgpod-Low-level-functions.html#itdb-cp"><code class="function">itdb_cp()</code></a> to copy the track to the iPod or implement
+your own copy function. After the file was copied you have to call
+<a class="link" href="libgpod-Low-level-functions.html#itdb-cp-finalize"><code class="function">itdb_cp_finalize()</code></a> to obtain relevant update information for
+<a class="link" href="libgpod-Tracks.html#Itdb-Track"><span class="type">Itdb_Track</span></a>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>track</code></em>&#160;:</span></p></td>
+<td>      track to transfer or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td> mountpoint of your iPod or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em>&#160;:</span></p></td>
+<td>   the source file
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a valid filename on the iPod where <em class="parameter"><code>filename</code></em> can be
+copied or NULL in case of an error. In that case <em class="parameter"><code>error</code></em> is set
+accordingly. You must free the filename when it is no longer
+needed.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.5.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2723218"></a><h3>
+<a name="itdb-cp-finalize"></a>itdb_cp_finalize ()</h3>
+<a class="indexterm" name="id2723233"></a><pre class="programlisting"><a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a>*         itdb_cp_finalize                    (<a class="link" href="libgpod-Tracks.html#Itdb-Track">Itdb_Track</a> *track,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *mountpoint,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *dest_filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Updates information in <em class="parameter"><code>track</code></em> necessary for the iPod.
+</p>
+<p>
+You must supply either <em class="parameter"><code>track</code></em> or <em class="parameter"><code>mountpoint</code></em>. If <em class="parameter"><code>track</code></em> == NULL, a
+new track structure is created that must be freed with
+<a class="link" href="libgpod-Tracks.html#itdb-track-free"><code class="function">itdb_track_free()</code></a> when it is no longer needed.
+</p>
+<p>
+The following <em class="parameter"><code>track</code></em> fields are updated:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+      ipod_path
+  </li>
+<li>
+      filetype_marker
+  </li>
+<li>
+      transferred
+  </li>
+<li>
+      size
+  </li>
+</ul></div>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>track</code></em>&#160;:</span></p></td>
+<td>          track to update or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mountpoint</code></em>&#160;:</span></p></td>
+<td>     mountpoint of your iPod or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest_filename</code></em>&#160;:</span></p></td>
+<td>  the name of the file on the iPod copied to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>          return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> on success a pointer to the <a class="link" href="libgpod-Tracks.html#Itdb-Track"><span class="type">Itdb_Track</span></a> item passed
+or a new <a class="link" href="libgpod-Tracks.html#Itdb-Track"><span class="type">Itdb_Track</span></a> item if <em class="parameter"><code>track</code></em> was NULL. In the latter case
+you must free the memory using <a class="link" href="libgpod-Tracks.html#itdb-track-free"><code class="function">itdb_track_free()</code></a> when the item is
+no longer used. If an error occurs NULL is returned and <em class="parameter"><code>error</code></em> is
+set accordingly. Errors occur when <em class="parameter"><code>dest_filename</code></em> cannot be
+accessed or the mountpoint is not set.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.5.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2723486"></a><h3>
+<a name="itdb-parse-file"></a>itdb_parse_file ()</h3>
+<a class="indexterm" name="id2723498"></a><pre class="programlisting"><a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a>*      itdb_parse_file                     (const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Same as <code class="function">itunesdb_parse()</code>, but filename is specified directly.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em>&#160;:</span></p></td>
+<td>   path to a file in iTunesDB format
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a newly allocated <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> struct holding the tracks and
+the playlists present in <em class="parameter"><code>filename</code></em>, NULL if <em class="parameter"><code>filename</code></em> isn't a parsable 
+iTunesDB file. If non-NULL, the <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> is to be freed with 
+<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#itdb-free"><code class="function">itdb_free()</code></a> when it's no longer needed
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2723634"></a><h3>
+<a name="itdb-write-file"></a>itdb_write_file ()</h3>
+<a class="indexterm" name="id2723647"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_write_file                     (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Write the content of <em class="parameter"><code>itdb</code></em> to <em class="parameter"><code>filename</code></em>. If <em class="parameter"><code>filename</code></em> is NULL, it attempts
+to write to <em class="parameter"><code>itdb-&gt;filename</code></em>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>itdb</code></em>&#160;:</span></p></td>
+<td>       the <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> to save
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em>&#160;:</span></p></td>
+<td>   filename to save <em class="parameter"><code>itdb</code></em> to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE if all went well, FALSE otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2725443"></a><h3>
+<a name="itdb-shuffle-write"></a>itdb_shuffle_write ()</h3>
+<a class="indexterm" name="id2725454"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_shuffle_write                  (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Write out an iTunesSD for the Shuffle.
+</p>
+<p>
+First reassigns unique IDs to all tracks.  An existing "Play
+Counts" file is renamed to "Play Counts.bak" if the export was
+successful.  An existing "OTGPlaylistInfo" file is removed if the
+export was successful.  <em class="parameter"><code>itdb-&gt;mountpoint</code></em> must point to the mount
+point of the iPod, e.g. "/mnt/ipod" and be in local encoding.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>itdb</code></em>&#160;:</span></p></td>
+<td>   the <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> to write to disk
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>  return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE on success, FALSE on error, in which case <em class="parameter"><code>error</code></em> is
+set accordingly.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2725559"></a><h3>
+<a name="itdb-shuffle-write-file"></a>itdb_shuffle_write_file ()</h3>
+<a class="indexterm" name="id2725569"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_shuffle_write_file             (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Do the actual writing to the iTunesSD</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>itdb</code></em>&#160;:</span></p></td>
+<td>       the <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> to write to disk
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em>&#160;:</span></p></td>
+<td>   file to write to, cannot be NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE on success, FALSE on error, in which case <em class="parameter"><code>error</code></em> is
+set accordingly.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2725681"></a><h3>
+<a name="itdb-duplicate"></a>itdb_duplicate ()</h3>
+<a class="indexterm" name="id2725692"></a><pre class="programlisting"><a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a>*      itdb_duplicate                      (<a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB">Itdb_iTunesDB</a> *itdb);</pre>
+<p>
+Duplicate <em class="parameter"><code>itdb</code></em> 
+FIXME: not implemented yet</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>itdb</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> always return NULL since it's unimplemented
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2725759"></a><div class="refsect2" lang="en"><a name="id2725760"></a></div>
+<hr>
+<div class="refsect2" lang="en"><a name="id2725761"></a></div>
+</div>
+</div>
+</body>
+</html>

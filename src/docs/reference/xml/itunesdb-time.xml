@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Time-handling">
+<refmeta>
+<refentrytitle role="top_of_page">Time handling</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Time handling</refname>
+<refpurpose>[DEPRECATED] Helper functions to convert between Epoch time and Mac
+(iPod) time</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+<link linkend="time-t">time_t</link>              <link linkend="itdb-time-get-mac-time">itdb_time_get_mac_time</link>              (void);
+<link linkend="time-t">time_t</link>              <link linkend="itdb-time-mac-to-host">itdb_time_mac_to_host</link>               (<link linkend="time-t">time_t</link> time);
+<link linkend="time-t">time_t</link>              <link linkend="itdb-time-host-to-mac">itdb_time_host_to_mac</link>               (<link linkend="time-t">time_t</link> time);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+The functions provide conversion between Epoch time and Mac (iPod)
+time.
+</para>
+<note>
+These functions are now obsolete and should no longer be used, libgpod
+automatically converts to/from Epoch time and iPod time when
+writing/reading the iPod databases.
+</note>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="itdb-time-get-mac-time" role="function" condition="deprecated"/>itdb_time_get_mac_time ()</title>
+<indexterm role="deprecated"><primary>itdb_time_get_mac_time</primary></indexterm><programlisting><link linkend="time-t">time_t</link>              itdb_time_get_mac_time              (void);</programlisting>
+<warning><para><literal>itdb_time_get_mac_time</literal> is deprecated and should not be used in newly-written code. kept for compatibility with older code, directly use
+<link linkend="g-get-current-time"><function>g_get_current_time()</function></link> or time(NULL) instead</para></warning>
+<para>
+Gets the current time in a format appropriate for storing in the libgpod
+data structures</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> current time
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-time-mac-to-host" role="function" condition="deprecated"/>itdb_time_mac_to_host ()</title>
+<indexterm role="deprecated"><primary>itdb_time_mac_to_host</primary></indexterm><programlisting><link linkend="time-t">time_t</link>              itdb_time_mac_to_host               (<link linkend="time-t">time_t</link> time);</programlisting>
+<warning><para><literal>itdb_time_mac_to_host</literal> is deprecated and should not be used in newly-written code. It's been kept for compatibility with older code, but this
+function is now a no-op</para></warning>
+<para>
+Converts a timestamp from libgpod format to host system timestamp.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>time</parameter>&nbsp;:</term>
+<listitem><simpara> time expressed in libgpod format
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> timestamp for the host system
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-time-host-to-mac" role="function" condition="deprecated"/>itdb_time_host_to_mac ()</title>
+<indexterm role="deprecated"><primary>itdb_time_host_to_mac</primary></indexterm><programlisting><link linkend="time-t">time_t</link>              itdb_time_host_to_mac               (<link linkend="time-t">time_t</link> time);</programlisting>
+<warning><para><literal>itdb_time_host_to_mac</literal> is deprecated and should not be used in newly-written code. It's been kept for compatibility with older code, but this
+function is now a no-op</para></warning>
+<para>
+Convert host system timestamp to libgpod format timestamp</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>time</parameter>&nbsp;:</term>
+<listitem><simpara> time expressed in host unit
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a libgpod timestamp
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

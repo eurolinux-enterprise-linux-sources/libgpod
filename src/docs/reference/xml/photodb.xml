@@ -1,0 +1,767 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Photo-database">
+<refmeta>
+<refentrytitle role="top_of_page">Photo database</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Photo database</refname>
+<refpurpose>Functions to create, read, write the photo database</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>;
+<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>*       <link linkend="itdb-photodb-create">itdb_photodb_create</link>                 (const <link linkend="gchar">gchar</link> *mountpoint);
+<link linkend="void">void</link>                <link linkend="itdb-photodb-free">itdb_photodb_free</link>                   (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *photodb);
+<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>*       <link linkend="itdb-photodb-parse">itdb_photodb_parse</link>                  (const <link linkend="gchar">gchar</link> *mp,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-photodb-write">itdb_photodb_write</link>                  (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *photodb,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="Itdb-Artwork">Itdb_Artwork</link>*       <link linkend="itdb-photodb-add-photo">itdb_photodb_add_photo</link>              (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="Itdb-Artwork">Itdb_Artwork</link>*       <link linkend="itdb-photodb-add-photo-from-data">itdb_photodb_add_photo_from_data</link>    (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="guchar">guchar</link> *image_data,
+                                                         <link linkend="gsize">gsize</link> image_data_len,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="Itdb-Artwork">Itdb_Artwork</link>*       <link linkend="itdb-photodb-add-photo-from-pixbuf">itdb_photodb_add_photo_from_pixbuf</link>  (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="gpointer">gpointer</link> pixbuf,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>                <link linkend="itdb-photodb-remove-photo">itdb_photodb_remove_photo</link>           (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *photo);
+                    <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link>;
+<link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link>*    <link linkend="itdb-photodb-photoalbum-create">itdb_photodb_photoalbum_create</link>      (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *albumname,
+                                                         <link linkend="gint">gint</link> pos);
+<link linkend="void">void</link>                <link linkend="itdb-photodb-photoalbum-add-photo">itdb_photodb_photoalbum_add_photo</link>   (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *photo,
+                                                         <link linkend="gint">gint</link> position);
+<link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link>*    <link linkend="itdb-photodb-photoalbum-by-name">itdb_photodb_photoalbum_by_name</link>     (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *albumname);
+<link linkend="void">void</link>                <link linkend="itdb-photodb-photoalbum-remove">itdb_photodb_photoalbum_remove</link>      (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="gboolean">gboolean</link> remove_pics);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions are for creating, reading, and writing the photo
+database.
+</para>
+<para>
+Overview of using the Photo database:
+</para>
+<para>
+<link linkend="itdb-photodb-parse"><function>itdb_photodb_parse()</function></link>:
+Read an existing PhotoDB.
+</para>
+<para>
+<link linkend="itdb-photodb-create"><function>itdb_photodb_create()</function></link>:
+Create a new <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> structure. The Photo Library Album is
+(first album) is created automatically.
+</para>
+<para>
+<link linkend="itdb-photodb-add-photo"><function>itdb_photodb_add_photo()</function></link>, <link linkend="itdb-photodb-add-photo-from-data"><function>itdb_photodb_add_photo_from_data()</function></link>:
+Add a photo to the PhotoDB (from file or from a chunk of
+memory). It is automatically added to the Photo Library Album
+(first album), which is created if it does not exist already.
+</para>
+<para>
+<link linkend="itdb-photodb-photoalbum-create"><function>itdb_photodb_photoalbum_create()</function></link>:
+Create and add a new photoalbum.
+</para>
+<para>
+<link linkend="itdb-photodb-photoalbum-add-photo"><function>itdb_photodb_photoalbum_add_photo()</function></link>:
+Add a photo (<link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>) to an existing photoalbum.
+</para>
+<para>
+<link linkend="itdb-photodb-photoalbum-remove"><function>itdb_photodb_photoalbum_remove()</function></link>:
+Remove an existing photoalbum. Pictures can be kept in the
+Photo Library or automatically removed as well.
+</para>
+<para>
+<link linkend="itdb-photodb-remove-photo"><function>itdb_photodb_remove_photo()</function></link>:
+Remove a photo either from a photoalbum or completely from the database.
+</para>
+<para>
+<link linkend="itdb-photodb-write"><function>itdb_photodb_write()</function></link>:
+Write out your PhotoDB.
+</para>
+<para>
+<link linkend="itdb-photodb-free"><function>itdb_photodb_free()</function></link>:
+Free all memory taken by the PhotoDB.
+</para>
+<para>
+<link linkend="itdb-photodb-photoalbum-by-name"><function>itdb_photodb_photoalbum_by_name()</function></link>:
+Find the first photoalbum with a given name or the Photo
+Library Album if called with no name.
+</para>
+<para>
+If you cannot add photos because your iPod is not recognized,
+you may have to set the iPod model by calling
+<link linkend="itdb-device-set-sysinfo"><function>itdb_device_set_sysinfo()</function></link>, e.g. for an 80 GB 6th generation
+iPod Video, you would use:
+</para>
+<programlisting>
+itdb_device_set_sysinfo (db->device, "ModelNumStr", "MA450");
+</programlisting>
+<para>
+See <ulink type="http"
+url="http://gtkpod.svn.sourceforge.net/svnroot/gtkpod/libgpod/trunk/src/itdb_device.c">itdb_device.c</ulink>
+for a list of supported models.
+</para>
+<para>
+The model number will be saved on the iPod when the PhotoDB is
+written (<link linkend="itdb-photodb-write"><function>itdb_photodb_write()</function></link> calls <link linkend="itdb-device-write-sysinfo"><function>itdb_device_write_sysinfo()</function></link>).
+</para>
+<para>
+Have a look at the <ulink type="http"
+url="http://gtkpod.svn.sourceforge.net/svnroot/gtkpod/libgpod/trunk/tests/test-photos.c">test-photos</ulink>
+test program in the <ulink type="http"
+url="http://gtkpod.svn.sourceforge.net/svnroot/gtkpod/libgpod/trunk/tests/">tests/</ulink>
+directory of the libgpod source for an example of how to use the interface.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-PhotoDB" role="struct" condition="since:0.4.0"/>Itdb_PhotoDB</title>
+<indexterm role="0.4.0"><primary>Itdb_PhotoDB</primary></indexterm><programlisting>typedef struct {
+    GList *photos;
+    GList *photoalbums;
+    Itdb_Device *device;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_PhotoDB;
+</programlisting>
+<para>
+Structure representing an iTunes Photo database</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>photos</structfield>;</term>
+<listitem><simpara>             A list of photos in the database (<link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>photoalbums</structfield>;</term>
+<listitem><simpara>        A list of albums in the database (<link linkend="Itdb-PhotoAlbum"><type>Itdb_PhotoAlbum</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="Itdb-Device">Itdb_Device</link>&nbsp;*<structfield>device</structfield>;</term>
+<listitem><simpara>             iPod device info (<link linkend="Itdb-Device"><type>Itdb_Device</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>usertype</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>userdata</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</link>&nbsp;<structfield>userdata_duplicate</structfield>;</term>
+<listitem><simpara> A function to duplicate <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</link>&nbsp;<structfield>userdata_destroy</structfield>;</term>
+<listitem><simpara>   A function to free <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-create" role="function" condition="since:0.4.2"/>itdb_photodb_create ()</title>
+<indexterm role="0.4.2"><primary>itdb_photodb_create</primary></indexterm><programlisting><link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>*       itdb_photodb_create                 (const <link linkend="gchar">gchar</link> *mountpoint);</programlisting>
+<para>
+Creates a new Itdb_PhotoDB. If mountpoint is NULL, you will have to
+set it manually later by calling <link linkend="itdb-device-set-mountpoint"><function>itdb_device_set_mountpoint()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mountpoint</parameter>&nbsp;:</term>
+<listitem><simpara> mountpoint or NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly created Itdb_PhotoDB to be freed with
+<link linkend="itdb-photodb-free"><function>itdb_photodb_free()</function></link> when it's no longer needed. The Photo Library
+Album is created automatically.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-free" role="function" condition="since:0.4.0"/>itdb_photodb_free ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_photodb_free                   (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *photodb);</programlisting>
+<para>
+Free the memory taken by <parameter>photodb</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>photodb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-parse" role="function" condition="since:0.4.0"/>itdb_photodb_parse ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_parse</primary></indexterm><programlisting><link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>*       itdb_photodb_parse                  (const <link linkend="gchar">gchar</link> *mp,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Parses the photo database of an iPod mounted at <parameter>mp</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&nbsp;:</term>
+<listitem><simpara>     mountpoint of the iPod
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>  will contain the error description when an error occured.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the imported PhotoDB or NULL in case of an error.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-write" role="function" condition="since:0.4.0"/>itdb_photodb_write ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_write</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_photodb_write                  (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *photodb,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Write out a PhotoDB.
+</para>
+<para>
+FIXME: error is not set yet.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>photodb</parameter>&nbsp;:</term>
+<listitem><simpara>    the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to write to disk
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>      return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE on success, FALSE on error, in which case <parameter>error</parameter> is
+set accordingly.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-add-photo" role="function" condition="since:0.4.0"/>itdb_photodb_add_photo ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_add_photo</primary></indexterm><programlisting><link linkend="Itdb-Artwork">Itdb_Artwork</link>*       itdb_photodb_add_photo              (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *filename,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Add a photo to the PhotoDB. The photo is automatically added to the
+first Photoalbum, which by default contains a list of all photos in
+the database. If no Photoalbums exist one is created automatically.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>         the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to add the photo to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara>   path of the photo to add.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&nbsp;:</term>
+<listitem><simpara>   position where to insert the new photo (-1 to append
+             at the end)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>      return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the added photo.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-add-photo-from-data" role="function" condition="since:0.4.0"/>itdb_photodb_add_photo_from_data ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_add_photo_from_data</primary></indexterm><programlisting><link linkend="Itdb-Artwork">Itdb_Artwork</link>*       itdb_photodb_add_photo_from_data    (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="guchar">guchar</link> *image_data,
+                                                         <link linkend="gsize">gsize</link> image_data_len,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Add a photo to the PhotoDB. The photo is automatically added to the
+first Photoalbum, which by default contains a list of all photos in
+the database. If no Photoalbums exist one is created automatically.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>             the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to add the photo to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>image_data</parameter>&nbsp;:</term>
+<listitem><simpara>     chunk of memory containing the image data (for
+                 example a jpg file)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>image_data_len</parameter>&nbsp;:</term>
+<listitem><simpara> length of above chunk of memory
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&nbsp;:</term>
+<listitem><simpara>       position where to insert the new photo (-1 to
+                 append at the end)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>       angle by which the image should be rotated
+                 counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>          return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the added photo.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-add-photo-from-pixbuf" role="function" condition="since:0.5.0"/>itdb_photodb_add_photo_from_pixbuf ()</title>
+<indexterm role="0.5.0"><primary>itdb_photodb_add_photo_from_pixbuf</primary></indexterm><programlisting><link linkend="Itdb-Artwork">Itdb_Artwork</link>*       itdb_photodb_add_photo_from_pixbuf  (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="gpointer">gpointer</link> pixbuf,
+                                                         <link linkend="gint">gint</link> position,
+                                                         <link linkend="gint">gint</link> rotation,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Add a photo to the PhotoDB. The photo is automatically added to the
+first Photoalbum, which by default contains a list of all photos in
+the database. If no Photoalbums exist one is created automatically.
+</para>
+<para>
+For the rotation angle you can also use the gdk constants
+<link linkend="GDK-PIXBUF-ROTATE-NONE:CAPS"><literal>GDK_PIXBUF_ROTATE_NONE</literal></link>, <link linkend="GDK-PIXBUF-ROTATE-COUNTERCLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</literal></link>,
+<link linkend="GDK-PIXBUF-ROTATE-UPSIDEDOWN:CAPS"><literal>GDK_PIXBUF_ROTATE_UPSIDEDOWN</literal></link>, AND <link linkend="GDK-PIXBUF-ROTATE-CLOCKWISE:CAPS"><literal>GDK_PIXBUF_ROTATE_CLOCKWISE</literal></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>         the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to add the photo to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixbuf</parameter>&nbsp;:</term>
+<listitem><simpara>     a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> to use as the image data
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&nbsp;:</term>
+<listitem><simpara>   position where to insert the new photo (-1 to append
+             at the end)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rotation</parameter>&nbsp;:</term>
+<listitem><simpara>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>      return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the added photo.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.5.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-remove-photo" role="function" condition="since:0.4.0"/>itdb_photodb_remove_photo ()</title>
+<indexterm role="0.4.0"><primary>itdb_photodb_remove_photo</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_photodb_remove_photo           (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *photo);</programlisting>
+<para>
+Removes a photo. If <parameter>album</parameter> is not the first photoalbum, the photo
+will be removed from that album only. If <parameter>album</parameter> is NULL or the
+first photoalbum (Photo Library), the photo will be removed from
+all albums and the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link>.
+</para>
+<para>
+<note>
+<parameter>photo</parameter> will be freed and can no longer be used if removed from the
+first photoalbum.
+</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>     the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to remove the photo from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>album</parameter>&nbsp;:</term>
+<listitem><simpara>  the album to remove the photo from. If album is NULL, then
+         it will first be removed from all photoalbums and then
+         from the photo database as well.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>photo</parameter>&nbsp;:</term>
+<listitem><simpara>  <link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link> (photo) to remove.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-PhotoAlbum" role="struct" condition="since:0.4.0"/>Itdb_PhotoAlbum</title>
+<indexterm role="0.4.0"><primary>Itdb_PhotoAlbum</primary></indexterm><programlisting>typedef struct {
+    Itdb_PhotoDB *photodb;
+    gchar *name;
+    GList *members;
+    guint8 album_type;
+    guint8 playmusic;
+    guint8 repeat;
+    guint8 random;
+    guint8 show_titles;
+    guint8 transition_direction;
+    gint32 slide_duration;
+    gint32 transition_duration;
+    gint64 song_id;
+    gint32 unk024;
+    gint16 unk028;
+    gint32 unk044;
+    gint32 unk048;
+    /* set automatically at time of writing the PhotoDB */
+    gint32  album_id;
+    gint32  prev_album_id;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_PhotoAlbum;
+</programlisting>
+<para>
+Structure representing an iTunes Photo Album</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link>&nbsp;*<structfield>photodb</structfield>;</term>
+<listitem><simpara>              A pointer to the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> (for convenience)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link>&nbsp;*<structfield>name</structfield>;</term>
+<listitem><simpara>                 The name of photoalbum in UTF8
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>members</structfield>;</term>
+<listitem><simpara>              A list of photos in album (<link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>album_type</structfield>;</term>
+<listitem><simpara>           The album type.  0x01 for master (Photo Library),
+                       0x02 for a normal album.  (4 and 5 have also been
+                       seen.)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>playmusic</structfield>;</term>
+<listitem><simpara>            Play music during slideshow
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>repeat</structfield>;</term>
+<listitem><simpara>               Repeat the slideshow
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>random</structfield>;</term>
+<listitem><simpara>               Show slides in random order
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>show_titles</structfield>;</term>
+<listitem><simpara>          Show slide captions
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint8">guint8</link>&nbsp;<structfield>transition_direction</structfield>;</term>
+<listitem><simpara> Transition direction.  0=none, 1=left-to-right,
+                       2=right-to-left, 3=top-to-bottom, 4=bottom-to-top
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>slide_duration</structfield>;</term>
+<listitem><simpara>       Slide duration in seconds
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>transition_duration</structfield>;</term>
+<listitem><simpara>  Transition duration, in milliseconds
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint64">gint64</link>&nbsp;<structfield>song_id</structfield>;</term>
+<listitem><simpara>              The <parameter>dbid2</parameter> of a track to play during slideshow
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>unk024</structfield>;</term>
+<listitem><simpara>               Unknown, seems to be always 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint16">gint16</link>&nbsp;<structfield>unk028</structfield>;</term>
+<listitem><simpara>               Unknown, seems to be always 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>unk044</structfield>;</term>
+<listitem><simpara>               Unknown, seems to always be 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>unk048</structfield>;</term>
+<listitem><simpara>               Unknown, seems to always be 0
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>album_id</structfield>;</term>
+<listitem><simpara>             The id of the album.  This is set automatically when
+                       the PhotoDB is written.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>prev_album_id</structfield>;</term>
+<listitem><simpara>        The id of the previous playlist.  This is set
+                       automatically when the PhotoDB is written.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>        Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>        Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>            Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>            Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>usertype</structfield>;</term>
+<listitem><simpara>             For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>userdata</structfield>;</term>
+<listitem><simpara>             For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</link>&nbsp;<structfield>userdata_duplicate</structfield>;</term>
+<listitem><simpara>   A function to duplicate <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</link>&nbsp;<structfield>userdata_destroy</structfield>;</term>
+<listitem><simpara>     A function to free <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-photoalbum-create" role="function" condition="since:0.4.2"/>itdb_photodb_photoalbum_create ()</title>
+<indexterm role="0.4.2"><primary>itdb_photodb_photoalbum_create</primary></indexterm><programlisting><link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link>*    itdb_photodb_photoalbum_create      (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *albumname,
+                                                         <link linkend="gint">gint</link> pos);</programlisting>
+<para>
+Create and add a new photoalbum.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>         The database to create a new album in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>albumname</parameter>&nbsp;:</term>
+<listitem><simpara>  the name of the new album
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>        position where to insert the newly created album (-1
+             to append at the end).
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the album which was created and added.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-photoalbum-add-photo" role="function" condition="since:0.4.2"/>itdb_photodb_photoalbum_add_photo ()</title>
+<indexterm role="0.4.2"><primary>itdb_photodb_photoalbum_add_photo</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_photodb_photoalbum_add_photo   (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="Itdb-Artwork">Itdb_Artwork</link> *photo,
+                                                         <link linkend="gint">gint</link> position);</programlisting>
+<para>
+Adds a photo already in the library to the specified album
+<parameter>album</parameter>. Photos are automatically added to the first album (Photo
+Library) when calling <link linkend="itdb-photodb-add-photo"><function>itdb_photodb_add_photo()</function></link> or
+<link linkend="itdb-photodb-add-photo-from-data"><function>itdb_photodb_add_photo_from_data()</function></link>, so you don't have to use this
+function to add them there.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>         the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to act on
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>album</parameter>&nbsp;:</term>
+<listitem><simpara>      the <link linkend="Itdb-PhotoAlbum"><type>Itdb_PhotoAlbum</type></link> to add the photo to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>photo</parameter>&nbsp;:</term>
+<listitem><simpara>      a pointer to the photo (<link linkend="Itdb-Artwork"><type>Itdb_Artwork</type></link>) to add to the
+             album
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&nbsp;:</term>
+<listitem><simpara>   position where to insert the new photo (-1 to append
+             at the end)
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-photoalbum-by-name" role="function" condition="since:0.4.2"/>itdb_photodb_photoalbum_by_name ()</title>
+<indexterm role="0.4.2"><primary>itdb_photodb_photoalbum_by_name</primary></indexterm><programlisting><link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link>*    itdb_photodb_photoalbum_by_name     (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         const <link linkend="gchar">gchar</link> *albumname);</programlisting>
+<para>
+Find the first photoalbum with a given name or the Photo Library
+Album if called with no name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>         the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to retrieve the album from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>albumname</parameter>&nbsp;:</term>
+<listitem><simpara>  the name of the photoalbum to get or NULL for the
+             master photoalbum.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a pointer to the first photoalbum named <parameter>albumname</parameter>,
+else NULL
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.2
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-photodb-photoalbum-remove" role="function" condition="since:0.4.2"/>itdb_photodb_photoalbum_remove ()</title>
+<indexterm role="0.4.2"><primary>itdb_photodb_photoalbum_remove</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_photodb_photoalbum_remove      (<link linkend="Itdb-PhotoDB">Itdb_PhotoDB</link> *db,
+                                                         <link linkend="Itdb-PhotoAlbum">Itdb_PhotoAlbum</link> *album,
+                                                         <link linkend="gboolean">gboolean</link> remove_pics);</programlisting>
+<para>
+Remove <parameter>album</parameter> from the Photo Database. If <parameter>remove_pics</parameter> is TRUE,
+remove all photos contained in <parameter>album</parameter> from the Photo Database.
+</para>
+<para>
+<note>
+Memory used by the removed album will be freed and the album cannot
+be accessed any more.
+</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>db</parameter>&nbsp;:</term>
+<listitem><simpara>             the <link linkend="Itdb-PhotoDB"><type>Itdb_PhotoDB</type></link> to apply changes to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>album</parameter>&nbsp;:</term>
+<listitem><simpara>          the album to be removed from the database
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>remove_pics</parameter>&nbsp;:</term>
+<listitem><simpara>    TRUE to remove pics in that album permanently
+                 from the database.
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.2
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

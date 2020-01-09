@@ -1,0 +1,154 @@
+Overview of changes in libgpod 0.7.2
+====================================
+
+* Performance work (thanks a lot to Javier Kohen for his patches)
+
+* Add itdb_device_supports_podcast and itdb_device_supports_chapter_image
+  methods
+
+* Fix static iPod Classic/Nano 3G artwork formats
+
+* Change installation directory for the HAL callout in the hope that it
+  will work out of the box on more systems
+
+* BSD portability fixes (courtesy of Andrew Nosenko)
+
+* Write MHLA (list of albums) headers to iTunesDB
+
+* Small improvements for iPhone support though iPhone 3G are still
+  unsupported because we can't checksum the iPhone iTunesDB.
+
+
+Overview of changes in libgpod 0.7.0
+====================================
+
+* support for iPod Nano 4th generation
+
+This includes support for cover art.
+Please note that this release DOES NOT support iPhones and iPod Touch
+with firmware 2.x
+
+* support for "sparse artwork" writing
+
+This lets us write more compact artwork files to the iPod, which in turn makes
+the UI more responsive (and saves disk space on the iPod).
+
+* jump table support
+
+These are the big letters that show up in the album/artist list when someone
+quickly scrolls through them. Thanks a lot to Ian Stewart for implementing it.
+
+* chapter data support
+
+Chapter data allows large files (movies, audio books, podcasts) to be divided
+into smaller sections.  Thanks to Michael Tiffany for this feature.
+
+* improved timezone handling
+
+This should now work up to 5G iPods, for newer iPods, libgpod will assume 
+timestamps are in UTC.
+
+* translation updates
+
+Thanks to all of our translators :)
+
+* much more complete API doc
+
+All of the public API is now documented with gtk-doc.
+
+* simplification of the cover art handling API
+
+The API for artwork for developers using libgpod should be more
+straightforward, if things are missing, don't hesitate to get in touch
+with us ;)
+
+* extensive plist parser
+
+In libgpod 0.6.0, libgpod got a very basic parser for the SysInfoExtended file
+(which is a XML plist description). This parser was rewritten for this release
+to parse the whole file. This parser depends on libxml2 but its compilation
+will be disabled if libxml2 and its development headers can't be found.
+
+* add mapping from iPod serial numbers to iPod models
+
+The iPod serial number can be obtained programmatically, and its last 3 digits
+are characteristic of an iPod (type, generation, color, capacity). libgpod
+can now find out an iPod model using this serial number.
+
+* portability improvements to windows and macosx
+
+This is probably not perfect yet, but the goal is to improve it as much as
+possible so don't hesitate to send bug reports if some things are still not
+working. Thanks to the songbird project and Éric Lassauge.
+
+* reworked handling of artwork formats
+
+libgpod can now automatically use the artwork formats described in
+SysInfoExtended even if the iPod model is unknown, this should make it possible
+for libgpod to support artwork on newly released iPod models without the need
+to upgrade.
+
+* python bindings are more consistent with other python container objects
+
+This enables testing whether a key exists in an object (e.g. "'title' in track")
+as well as iterating over a Track or Photo object's keys, values, or items.
+
+* bug fixes and code cleanup all over the place
+
+
+Overview of changes in libgpod 0.6.0
+====================================
+
+* support for iPod Classics and Video Nanos
+
+The database from these models is protected by a checksum. When this checksum 
+doesn't match the content of the iPod database, the iPod won't show any 
+track (ie it will look empty). Support for writing this checksum has been 
+implemented in this release thanks to the awesome work of a few people in
+#gtkpod. However, to calculate this checksum, a so called "firewire ID" is 
+needed which is different from iPod to iPod. Since reading it from the iPod
+requires special permissions, the firewire ID must be written in a regular 
+file on the iPod so that libgpod can find it and use it to generate the
+checksum. 
+
+libgpod installs a HAL callout to do that automatically when 
+everything is installed in an appropriate place. It can also be done manually,
+see README.SysInfo for more information.
+
+Cover art should be working except for non square covers, preliminary photo 
+support but this hasn't been widely tested yet.
+
+
+* support for iPhone and iPod Touch
+
+This requires manual user intervention: the devices must be jailbroken and 
+mounted through sshfs. The iPod Touch also needs a firewire ID which must be
+manually set, see README.SysInfo
+
+Cover art is implemented but not tested at all, ditto for photo support on 
+the iPod Touch
+
+
+* additional tools to get the firewire id from new iPods including a HAL
+  callout which will make the process totally automatic when it's properly 
+  installed. These tools need libsgutils to be installed.
+
+* endianness fixes in the artwork writing code
+* now depends on glib 2.8 or newer
+
+Huge thanks to wtbw and Simon Schulz without whom that release wouldn't have 
+been possible. Thanks as well to the people on #gtkpod for the testing they 
+provided.
+
+Other contributors to the release:
+- Jesse Bouwman
+- Alex Eftimie
+- Christophe Fergeau
+- Filippo Giunchedi
+- Javier Kohen
+- Tobias Kreisel
+- Eric Lassauge
+- Nicholas Piper
+- Jorg Schuler
+- Simon Schulz
+- Todd Zullinger

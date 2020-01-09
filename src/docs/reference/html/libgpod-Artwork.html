@@ -1,0 +1,894 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Artwork</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="libgpod Reference Manual">
+<link rel="up" href="ch01.html" title="iPod database components">
+<link rel="prev" href="libgpod-Smart-Playlists.html" title="Smart Playlists">
+<link rel="next" href="libgpod-Chapter-Data.html" title="Chapter Data">
+<meta name="generator" content="GTK-Doc V1.9 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="itunesdb.html" title="Part&#160;I.&#160;iPod database">
+<link rel="chapter" href="ch01.html" title="iPod database components">
+<link rel="part" href="photodb.html" title="Part&#160;II.&#160;Photo database">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libgpod-Smart-Playlists.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libgpod Reference Manual</th>
+<td><a accesskey="n" href="libgpod-Chapter-Data.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2715714" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2733529" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libgpod-Artwork"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2715714"></a><span class="refentrytitle">Artwork</span>
+</h2>
+<p>Artwork &#8212; Data structure to store iPod artwork (album covers)</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+                    <a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a>;
+<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a>*       <a class="link" href="libgpod-Artwork.html#itdb-artwork-new">itdb_artwork_new</a>                    (void);
+<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a>*       <a class="link" href="libgpod-Artwork.html#itdb-artwork-duplicate">itdb_artwork_duplicate</a>              (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);
+void                <a class="link" href="libgpod-Artwork.html#itdb-artwork-free">itdb_artwork_free</a>                   (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>            <a class="link" href="libgpod-Artwork.html#itdb-artwork-get-pixbuf">itdb_artwork_get_pixbuf</a>             (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> width,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> height);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Artwork.html#itdb-artwork-set-thumbnail">itdb_artwork_set_thumbnail</a>          (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Artwork.html#itdb-artwork-set-thumbnail-from-data">itdb_artwork_set_thumbnail_from_data</a>
+                                                        (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guchar"
+>guchar</a> *image_data,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gsize"
+>gsize</a> image_data_len,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="libgpod-Artwork.html#itdb-artwork-set-thumbnail-from-pixbuf">itdb_artwork_set_thumbnail_from_pixbuf</a>
+                                                        (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> pixbuf,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);
+void                <a class="link" href="libgpod-Artwork.html#itdb-artwork-remove-thumbnails">itdb_artwork_remove_thumbnails</a>      (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);
+                    <a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a>;
+<a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a>*         <a class="link" href="libgpod-Artwork.html#itdb-thumb-duplicate">itdb_thumb_duplicate</a>                (<a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);
+void                <a class="link" href="libgpod-Artwork.html#itdb-thumb-free">itdb_thumb_free</a>                     (<a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>            <a class="link" href="libgpod-Artwork.html#itdb-thumb-to-pixbuf-at-size">itdb_thumb_to_pixbuf_at_size</a>        (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> width,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> height);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*              <a class="link" href="libgpod-Artwork.html#itdb-thumb-to-pixbufs">itdb_thumb_to_pixbufs</a>               (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2733529"></a><h2>Description</h2>
+<p>
+These functions and structures are for adding, changing, and removing
+album/track artwork.  For working with photos, see the
+<a class="link" href="photodb.html" title="Part&#160;II.&#160;Photo database">Photo database</a> section.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2733553"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2735063"></a><h3>
+<a name="Itdb-Artwork"></a>Itdb_Artwork</h3>
+<a class="indexterm" name="id2735078"></a><pre class="programlisting">typedef struct {
+    Itdb_Thumb *thumbnail;
+    guint32 id;
+    guint64 dbid;
+    gint32  unk028;
+    guint32 rating;
+    gint32  unk036;
+    time_t  creation_date;
+    time_t  digitized_date;
+    guint32 artwork_size;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_Artwork;
+</pre>
+<p>
+Structure representing artwork in an <a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#Itdb-iTunesDB"><span class="type">Itdb_iTunesDB</span></a> or <a class="link" href="libgpod-Photo-database.html#Itdb-PhotoDB"><span class="type">Itdb_PhotoDB</span></a></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a>&#160;*<em class="structfield"><code>thumbnail</code></em>;</span></p></td>
+<td>          An <a class="link" href="libgpod-Artwork.html#Itdb-Thumb"><span class="type">Itdb_Thumb</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>id</code></em>;</span></p></td>
+<td>                 Artwork id used by photoalbums.  This starts at 0x40 and
+                     is set automatically when the ArtworkDB or PhotoDB is
+                     written
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint64"
+>guint64</a>&#160;<em class="structfield"><code>dbid</code></em>;</span></p></td>
+<td>               The dbid of associated track.  Used internally by
+                     libgpod.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>unk028</code></em>;</span></p></td>
+<td>             Unknown
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>rating</code></em>;</span></p></td>
+<td>             Rating from iPhoto * 20 (PhotoDB only)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>unk036</code></em>;</span></p></td>
+<td>             Unknown
+</td>
+</tr>
+<tr>
+<td><p><span class="term">time_t&#160;<em class="structfield"><code>creation_date</code></em>;</span></p></td>
+<td>      Date the image file was created (PhotoDB only)
+</td>
+</tr>
+<tr>
+<td><p><span class="term">time_t&#160;<em class="structfield"><code>digitized_date</code></em>;</span></p></td>
+<td>     Date the image was taken (EXIF information, PhotoDB
+                     only)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint32"
+>guint32</a>&#160;<em class="structfield"><code>artwork_size</code></em>;</span></p></td>
+<td>       Size in bytes of the original source image (PhotoDB
+                     only -- don't touch in case of ArtworkDB!)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int1</code></em>;</span></p></td>
+<td>      Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint32"
+>gint32</a>&#160;<em class="structfield"><code>reserved_int2</code></em>;</span></p></td>
+<td>      Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved1</code></em>;</span></p></td>
+<td>          Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>reserved2</code></em>;</span></p></td>
+<td>          Reserved for future use
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint64"
+>guint64</a>&#160;<em class="structfield"><code>usertype</code></em>;</span></p></td>
+<td>           For use by application
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>&#160;<em class="structfield"><code>userdata</code></em>;</span></p></td>
+<td>           For use by application
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</a>&#160;<em class="structfield"><code>userdata_duplicate</code></em>;</span></p></td>
+<td> A function to duplicate <span class="type">userdata</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libgpod-The-Itdb-iTunesDB-structure.html#ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</a>&#160;<em class="structfield"><code>userdata_destroy</code></em>;</span></p></td>
+<td>   A function to free <span class="type">userdata</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734467"></a><h3>
+<a name="itdb-artwork-new"></a>itdb_artwork_new ()</h3>
+<a class="indexterm" name="id2734482"></a><pre class="programlisting"><a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a>*       itdb_artwork_new                    (void);</pre>
+<p>
+Creates a new <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a new <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a> to be freed with <a class="link" href="libgpod-Artwork.html#itdb-artwork-free"><code class="function">itdb_artwork_free()</code></a> when
+no longer needed
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734552"></a><h3>
+<a name="itdb-artwork-duplicate"></a>itdb_artwork_duplicate ()</h3>
+<a class="indexterm" name="id2734566"></a><pre class="programlisting"><a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a>*       itdb_artwork_duplicate              (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);</pre>
+<p>
+Duplicates <em class="parameter"><code>artwork</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a new copy of <em class="parameter"><code>artwork</code></em>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734652"></a><h3>
+<a name="itdb-artwork-free"></a>itdb_artwork_free ()</h3>
+<a class="indexterm" name="id2734666"></a><pre class="programlisting">void                itdb_artwork_free                   (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);</pre>
+<p>
+Frees memory used by <em class="parameter"><code>artwork</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734735"></a><h3>
+<a name="itdb-artwork-get-pixbuf"></a>itdb_artwork_get_pixbuf ()</h3>
+<a class="indexterm" name="id2734748"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>            itdb_artwork_get_pixbuf             (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> width,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> height);</pre>
+<p>
+Returns a <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> representing the thumbnail stored in <em class="parameter"><code>artwork</code></em>
+scaling it if appropriate. If either height or width is -1, then the
+biggest unscaled thumbnail available will be returned</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em>&#160;:</span></p></td>
+<td>     an <a class="link" href="libgpod-Device.html#Itdb-Device"><span class="type">Itdb_Device</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td>    an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em>&#160;:</span></p></td>
+<td>      width of the pixbuf to retrieve, -1 for the biggest
+             possible size and 0 for the smallest possible size (with no
+             scaling)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em>&#160;:</span></p></td>
+<td>     height of the pixbuf to retrieve, -1 for the biggest possible
+             size and 0 for the smallest possible size (with no scaling)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> that must be unreffed when no longer used, NULL
+if no artwork could be found or if libgpod is compiled without GdkPixbuf
+support
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2734922"></a><h3>
+<a name="itdb-artwork-set-thumbnail"></a>itdb_artwork_set_thumbnail ()</h3>
+<a class="indexterm" name="id2734936"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_artwork_set_thumbnail          (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *filename,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Appends a thumbnail of type <em class="parameter"><code>type</code></em> to existing thumbnails in <em class="parameter"><code>artwork</code></em>. No
+data is read from <em class="parameter"><code>filename</code></em> yet, the file will be when <em class="parameter"><code>artwork</code></em> is saved to
+disk. <em class="parameter"><code>filename</code></em> must still exist when that happens.
+</p>
+<p>
+For the rotation angle you can also use the gdk constants
+<code class="literal">GDK_PIXBUF_ROTATE_NONE</code>, <code class="literal">GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</code>,
+<code class="literal">GDK_PIXBUF_ROTATE_UPSIDEDOWN</code>, AND <code class="literal">GDK_PIXBUF_ROTATE_CLOCKWISE</code>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td>    an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em>&#160;:</span></p></td>
+<td>   image file to use to create the thumbnail
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rotation</code></em>&#160;:</span></p></td>
+<td>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <em class="parameter"><code>error</code></em> is set appropriately.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2743315"></a><h3>
+<a name="itdb-artwork-set-thumbnail-from-data"></a>itdb_artwork_set_thumbnail_from_data ()</h3>
+<a class="indexterm" name="id2743327"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_artwork_set_thumbnail_from_data
+                                                        (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guchar"
+>guchar</a> *image_data,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gsize"
+>gsize</a> image_data_len,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Set a thumbnail in <em class="parameter"><code>artwork</code></em>. No data is processed yet. This will be done when
+<em class="parameter"><code>artwork</code></em> is saved to disk.
+</p>
+<p>
+For the rotation angle you can also use the gdk constants
+<code class="literal">GDK_PIXBUF_ROTATE_NONE</code>, <code class="literal">GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</code>,
+<code class="literal">GDK_PIXBUF_ROTATE_UPSIDEDOWN</code>, AND <code class="literal">GDK_PIXBUF_ROTATE_CLOCKWISE</code>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td>        an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>image_data</code></em>&#160;:</span></p></td>
+<td>     data used to create the thumbnail (the raw contents of
+                 an image file)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>image_data_len</code></em>&#160;:</span></p></td>
+<td> length of above data block
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rotation</code></em>&#160;:</span></p></td>
+<td>       angle by which the image should be rotated
+                 counterclockwise. Valid values are 0, 90, 180 and 270.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>          return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <em class="parameter"><code>error</code></em> is set appropriately.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2743536"></a><h3>
+<a name="itdb-artwork-set-thumbnail-from-pixbuf"></a>itdb_artwork_set_thumbnail_from_pixbuf ()</h3>
+<a class="indexterm" name="id2743551"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            itdb_artwork_set_thumbnail_from_pixbuf
+                                                        (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> pixbuf,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> rotation,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+>GError</a> **error);</pre>
+<p>
+Set a thumbnail in <em class="parameter"><code>artwork</code></em>. No data is generated from <em class="parameter"><code>pixbuf</code></em> yet, it will
+be done when <em class="parameter"><code>artwork</code></em> is saved to disk. <em class="parameter"><code>pixbuf</code></em> is ref'ed by this function,
+but is not copied, so it should not be modified before the database is saved.
+</p>
+<p>
+For the rotation angle you can also use the gdk constants
+<code class="literal">GDK_PIXBUF_ROTATE_NONE</code>, <code class="literal">GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE</code>,
+<code class="literal">GDK_PIXBUF_ROTATE_UPSIDEDOWN</code>, AND <code class="literal">GDK_PIXBUF_ROTATE_CLOCKWISE</code>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td>    an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pixbuf</code></em>&#160;:</span></p></td>
+<td>     <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> to use to create the thumbnail
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rotation</code></em>&#160;:</span></p></td>
+<td>   angle by which the image should be rotated
+             counterclockwise. Valid values are 0, 90, 180 and 270.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></p></td>
+<td>      return location for a <a
+href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"
+><span class="type">GError</span></a> or NULL
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> TRUE if the thumbnail could be successfully added, FALSE
+otherwise. <em class="parameter"><code>error</code></em> is set appropriately.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2743763"></a><h3>
+<a name="itdb-artwork-remove-thumbnails"></a>itdb_artwork_remove_thumbnails ()</h3>
+<a class="indexterm" name="id2743777"></a><pre class="programlisting">void                itdb_artwork_remove_thumbnails      (<a class="link" href="libgpod-Artwork.html#Itdb-Artwork">Itdb_Artwork</a> *artwork);</pre>
+<p>
+Removes all thumbnails from <em class="parameter"><code>artwork</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>artwork</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Artwork.html#Itdb-Artwork"><span class="type">Itdb_Artwork</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2743839"></a><h3>
+<a name="Itdb-Thumb"></a>Itdb_Thumb</h3>
+<a class="indexterm" name="id2743851"></a><pre class="programlisting">typedef struct {
+    ItdbThumbDataType data_type;
+    guint rotation;
+} Itdb_Thumb;
+</pre>
+<p>
+This is an opaque structure representing a thumbnail to be
+transferred to the ipod or read from the ipod.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">ItdbThumbDataType&#160;<em class="structfield"><code>data_type</code></em>;</span></p></td>
+<td> The type of data (file, memory, pixbuf, ipod, etc.)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"
+>guint</a>&#160;<em class="structfield"><code>rotation</code></em>;</span></p></td>
+<td>  Angle by which the image is rotated counterclockwise
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2743920"></a><h3>
+<a name="itdb-thumb-duplicate"></a>itdb_thumb_duplicate ()</h3>
+<a class="indexterm" name="id2743932"></a><pre class="programlisting"><a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a>*         itdb_thumb_duplicate                (<a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);</pre>
+<p>
+Duplicates the data contained in <em class="parameter"><code>thumb</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>thumb</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Artwork.html#Itdb-Thumb"><span class="type">Itdb_Thumb</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a newly allocated copy of <em class="parameter"><code>thumb</code></em> to be freed with
+<a class="link" href="libgpod-Artwork.html#itdb-thumb-free"><code class="function">itdb_thumb_free()</code></a> after use
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2744017"></a><h3>
+<a name="itdb-thumb-free"></a>itdb_thumb_free ()</h3>
+<a class="indexterm" name="id2744029"></a><pre class="programlisting">void                itdb_thumb_free                     (<a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);</pre>
+<p>
+Frees the memory used by <em class="parameter"><code>thumb</code></em></p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>thumb</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Artwork.html#Itdb-Thumb"><span class="type">Itdb_Thumb</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since  0.3.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2744090"></a><h3>
+<a name="itdb-thumb-to-pixbuf-at-size"></a>itdb_thumb_to_pixbuf_at_size ()</h3>
+<a class="indexterm" name="id2744104"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>            itdb_thumb_to_pixbuf_at_size        (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> width,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a> height);</pre>
+<p>
+Converts <em class="parameter"><code>thumb</code></em> to a <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a>.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+Since we want to have gdk-pixbuf dependency optional, a generic
+gpointer is returned which you have to cast to a <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> using
+<code class="function">GDK_PIXBUF()</code> yourself.
+</div>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Device.html#Itdb-Device"><span class="type">Itdb_Device</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>thumb</code></em>&#160;:</span></p></td>
+<td>  an <a class="link" href="libgpod-Artwork.html#Itdb-Thumb"><span class="type">Itdb_Thumb</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em>&#160;:</span></p></td>
+<td>  width of the pixbuf to retrieve, -1 for the biggest
+         possible size and 0 for the smallest possible size (with no scaling)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em>&#160;:</span></p></td>
+<td> height of the pixbuf to retrieve, -1 for the biggest possible size
+         and 0 for the smallest possible size (with no scaling)
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> that must be unreffed with <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-refcounting.html#gdk-pixbuf-unref"
+><code class="function">gdk_pixbuf_unref()</code></a>
+after use, or NULL if the creation of the gdk-pixbuf failed or if
+libgpod was compiled without gdk-pixbuf support.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2744289"></a><h3>
+<a name="itdb-thumb-to-pixbufs"></a>itdb_thumb_to_pixbufs ()</h3>
+<a class="indexterm" name="id2744302"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*              itdb_thumb_to_pixbufs               (<a class="link" href="libgpod-Device.html#Itdb-Device">Itdb_Device</a> *device,
+                                                         <a class="link" href="libgpod-Artwork.html#Itdb-Thumb">Itdb_Thumb</a> *thumb);</pre>
+<p>
+Converts <em class="parameter"><code>thumb</code></em> to a <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> of <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a>. The returned <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> will
+generally contain only 1 element, the full-size pixbuf associated with
+<em class="parameter"><code>thumb</code></em>, but when the artwork has been read from the ipod and hasn't been
+modified from the library, then the returned <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> will contain several
+<a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> corresponding to the various thumbnail sizes that were
+written to the iPod database.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>device</code></em>&#160;:</span></p></td>
+<td> an <a class="link" href="libgpod-Device.html#Itdb-Device"><span class="type">Itdb_Device</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>thumb</code></em>&#160;:</span></p></td>
+<td>  an <a class="link" href="libgpod-Artwork.html#Itdb-Thumb"><span class="type">Itdb_Thumb</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></p></td>
+<td> a <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> of <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> which are associated with <em class="parameter"><code>thumb</code></em>, NULL
+if the pixbuf was invalid or if libgpod is compiled without gdk-pixbuf
+support. The <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-gdk-pixbuf.html#GdkPixbuf"
+><span class="type">GdkPixbuf</span></a> must be unreffed with <a
+href="/usr/share/gtk-doc/html/gdk-pixbuf/gdk-pixbuf-refcounting.html#gdk-pixbuf-unref"
+><code class="function">gdk_pixbuf_unref()</code></a> after use
+and the <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> must be freed with <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#g-list-free"
+><code class="function">g_list_free()</code></a>.
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since  0.7.0
+</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2744489"></a><h2>See Also</h2>
+<p>
+<a class="link" href="photodb.html" title="Part&#160;II.&#160;Photo database">Photo database</a>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2744504"></a><div class="refsect2" lang="en"><a name="id2744505"></a></div>
+<hr>
+<div class="refsect2" lang="en"><a name="id2744506"></a></div>
+</div>
+</div>
+</body>
+</html>

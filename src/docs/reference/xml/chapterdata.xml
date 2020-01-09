@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-Chapter-Data">
+<refmeta>
+<refentrytitle role="top_of_page">Chapter Data</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Chapter Data</refname>
+<refpurpose>Data structure to store chapter data for tracks</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-Chapter">Itdb_Chapter</link>;
+                    <link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link>;
+<link linkend="Itdb-Chapter">Itdb_Chapter</link>*       <link linkend="itdb-chapter-new">itdb_chapter_new</link>                    (void);
+<link linkend="Itdb-Chapter">Itdb_Chapter</link>*       <link linkend="itdb-chapter-duplicate">itdb_chapter_duplicate</link>              (<link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);
+<link linkend="void">void</link>                <link linkend="itdb-chapter-free">itdb_chapter_free</link>                   (<link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);
+<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link>*   <link linkend="itdb-chapterdata-new">itdb_chapterdata_new</link>                (void);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-chapterdata-add-chapter">itdb_chapterdata_add_chapter</link>        (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata,
+                                                         <link linkend="gint32">gint32</link> startpos,
+                                                         <link linkend="gchar">gchar</link> *chaptertitle);
+<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link>*   <link linkend="itdb-chapterdata-duplicate">itdb_chapterdata_duplicate</link>          (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);
+<link linkend="void">void</link>                <link linkend="itdb-chapterdata-remove-chapter">itdb_chapterdata_remove_chapter</link>     (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata,
+                                                         <link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);
+<link linkend="void">void</link>                <link linkend="itdb-chapterdata-remove-chapters">itdb_chapterdata_remove_chapters</link>    (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);
+<link linkend="void">void</link>                <link linkend="itdb-chapterdata-free">itdb_chapterdata_free</link>               (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+Chapters allow for a large file to be divided into sections.  The start and stop
+points in the track are defined here, as well as the title for each chapter.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-Chapter" role="struct" condition="since:0.7.0"/>Itdb_Chapter</title>
+<indexterm role="0.7.0"><primary>Itdb_Chapter</primary></indexterm><programlisting>typedef struct {
+    guint32 startpos;
+    gchar *chaptertitle;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+} Itdb_Chapter;
+</programlisting>
+<para>
+Structure representing an iTunesDB Chapter</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>startpos</structfield>;</term>
+<listitem><simpara>      The start position of the chapter in ms. The first chapter
+                begins at 1.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link>&nbsp;*<structfield>chaptertitle</structfield>;</term>
+<listitem><simpara>  The chapter title in UTF8
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara> Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara> Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>     Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>     Reserved for future use
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="Itdb-Chapterdata" role="struct" condition="since:0.7.0"/>Itdb_Chapterdata</title>
+<indexterm role="0.7.0"><primary>Itdb_Chapterdata</primary></indexterm><programlisting>typedef struct {
+    GList *chapters;
+    guint32 unk024;
+    guint32 unk028;
+    guint32 unk032;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+} Itdb_Chapterdata;
+</programlisting>
+<para>
+Structure representing iTunesDB Chapter data</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>chapters</structfield>;</term>
+<listitem><simpara>      A list of chapters (<link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>unk024</structfield>;</term>
+<listitem><simpara>        Unknown
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>unk028</structfield>;</term>
+<listitem><simpara>        Unknown
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>unk032</structfield>;</term>
+<listitem><simpara>        Unknown
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara> Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara> Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>     Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>     Reserved for future use
+</simpara></listitem>
+</varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapter-new" role="function" condition="since:0.7.0"/>itdb_chapter_new ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapter_new</primary></indexterm><programlisting><link linkend="Itdb-Chapter">Itdb_Chapter</link>*       itdb_chapter_new                    (void);</programlisting>
+<para>
+Creates a new <link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> newly allocated <link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link> to be freed with <link linkend="itdb-chapter-free"><function>itdb_chapter_free()</function></link>
+after use
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapter-duplicate" role="function" condition="since:0.7.0"/>itdb_chapter_duplicate ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapter_duplicate</primary></indexterm><programlisting><link linkend="Itdb-Chapter">Itdb_Chapter</link>*       itdb_chapter_duplicate              (<link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);</programlisting>
+<para>
+Duplicates the data contained in <parameter>chapter</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapter</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated copy of <parameter>chapter</parameter> to be freed with
+<link linkend="itdb-chapter-free"><function>itdb_chapter_free()</function></link> after use
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapter-free" role="function" condition="since:0.7.0"/>itdb_chapter_free ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapter_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_chapter_free                   (<link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);</programlisting>
+<para>
+Frees the memory used by <parameter>chapter</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapter</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-new" role="function" condition="since:0.7.0"/>itdb_chapterdata_new ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_new</primary></indexterm><programlisting><link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link>*   itdb_chapterdata_new                (void);</programlisting>
+<para>
+Creates a new <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link> to be freed with
+              <link linkend="itdb-chapterdata-free"><function>itdb_chapterdata_free()</function></link> when no longer needed
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-add-chapter" role="function" condition="since:0.7.0"/>itdb_chapterdata_add_chapter ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_add_chapter</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_chapterdata_add_chapter        (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata,
+                                                         <link linkend="gint32">gint32</link> startpos,
+                                                         <link linkend="gchar">gchar</link> *chaptertitle);</programlisting>
+<para>
+Appends a chapter to existing chapters in <parameter>chapterdata</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapterdata</parameter>&nbsp;:</term>
+<listitem><simpara>  an <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>startpos</parameter>&nbsp;:</term>
+<listitem><simpara>     chapter start time in milliseconds
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>chaptertitle</parameter>&nbsp;:</term>
+<listitem><simpara> chapter title
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if the chapter could be successfully added, FALSE
+otherwise.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-duplicate" role="function" condition="since:0.7.0"/>itdb_chapterdata_duplicate ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_duplicate</primary></indexterm><programlisting><link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link>*   itdb_chapterdata_duplicate          (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);</programlisting>
+<para>
+Duplicates <parameter>chapterdata</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapterdata</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new copy of <parameter>chapterdata</parameter>
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-remove-chapter" role="function" condition="since:0.7.0"/>itdb_chapterdata_remove_chapter ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_remove_chapter</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_chapterdata_remove_chapter     (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata,
+                                                         <link linkend="Itdb-Chapter">Itdb_Chapter</link> *chapter);</programlisting>
+<para>
+Removes <parameter>chapter</parameter> from <parameter>chapterdata</parameter>. The memory used by <parameter>chapter</parameter> is freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapterdata</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>chapter</parameter>&nbsp;:</term>
+<listitem><simpara>     an <link linkend="Itdb-Chapter"><type>Itdb_Chapter</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-remove-chapters" role="function" condition="since:0.7.0"/>itdb_chapterdata_remove_chapters ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_remove_chapters</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_chapterdata_remove_chapters    (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);</programlisting>
+<para>
+Removes all chapters from <parameter>chapterdata</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapterdata</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-chapterdata-free" role="function" condition="since:0.7.0"/>itdb_chapterdata_free ()</title>
+<indexterm role="0.7.0"><primary>itdb_chapterdata_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_chapterdata_free               (<link linkend="Itdb-Chapterdata">Itdb_Chapterdata</link> *chapterdata);</programlisting>
+<para>
+Frees memory used by <parameter>chapterdata</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>chapterdata</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-Chapterdata"><type>Itdb_Chapterdata</type></link>
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.7.0
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>

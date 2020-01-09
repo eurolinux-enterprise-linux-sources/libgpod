@@ -1,0 +1,504 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libgpod-The-Itdb-iTunesDB-structure">
+<refmeta>
+<refentrytitle role="top_of_page">iPod database reading/writing</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBGPOD Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>iPod database reading/writing</refname>
+<refpurpose>Functions to read, write, and create an iPod database</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+                    <link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>;
+enum                <link linkend="ItdbFileError">ItdbFileError</link>;
+<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>*      <link linkend="itdb-new">itdb_new</link>                            (void);
+<link linkend="void">void</link>                <link linkend="itdb-free">itdb_free</link>                           (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>*      <link linkend="itdb-parse">itdb_parse</link>                          (const <link linkend="gchar">gchar</link> *mp,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-write">itdb_write</link>                          (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>                <link linkend="itdb-set-mountpoint">itdb_set_mountpoint</link>                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         const <link linkend="gchar">gchar</link> *mp);
+const <link linkend="gchar">gchar</link>*        <link linkend="itdb-get-mountpoint">itdb_get_mountpoint</link>                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="gboolean">gboolean</link>            <link linkend="itdb-init-ipod">itdb_init_ipod</link>                      (const <link linkend="gchar">gchar</link> *mountpoint,
+                                                         const <link linkend="gchar">gchar</link> *model_number,
+                                                         const <link linkend="gchar">gchar</link> *ipod_name,
+                                                         <link linkend="GError">GError</link> **error);
+<link linkend="guint32">guint32</link>             <link linkend="itdb-tracks-number">itdb_tracks_number</link>                  (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="guint32">guint32</link>             <link linkend="itdb-tracks-number-nontransferred">itdb_tracks_number_nontransferred</link>   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="guint32">guint32</link>             <link linkend="itdb-playlists-number">itdb_playlists_number</link>               (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);
+<link linkend="void">void</link>                (<link linkend="ItdbUserDataDestroyFunc">*ItdbUserDataDestroyFunc</link>)          (<link linkend="gpointer">gpointer</link> userdata);
+<link linkend="gpointer">gpointer</link>            (<link linkend="ItdbUserDataDuplicateFunc">*ItdbUserDataDuplicateFunc</link>)        (<link linkend="gpointer">gpointer</link> userdata);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions are for reading, writing, creating, and deleting an iPod
+database and getting the total number of tracks and playlists.
+</para>
+<para>
+Overview of using an iPod database:
+</para>
+<para>
+<link linkend="itdb-parse"><function>itdb_parse()</function></link>: read the iTunesDB and ArtworkDB
+</para>
+<para>
+<link linkend="itdb-write"><function>itdb_write()</function></link>: write the iTunesDB and ArtworkDB
+</para>
+<para>
+<link linkend="itdb-parse"><function>itdb_parse()</function></link> will return a <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> structure with GLists
+containing all tracks the playlists in the database.  Each track is
+represented by an <link linkend="Itdb-Track"><type>Itdb_Track</type></link>.   Each playlist is represented by an
+<link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>.  See the <link linkend="libgpod-Tracks">Tracks</link>
+and <link linkend="libgpod-Playlists">Playlists</link> sections for
+details on tracks and playlists, respectively.
+</para>
+<para>
+Each <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> has a GList called <parameter>members</parameter> which contains all of
+the tracks in the playlist.  Tracks referenced in a playlist must also
+be present in the <parameter>tracks</parameter> GList of the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>.
+</para>
+<para>
+The iPod must contain one master playlist (MPL) containing all tracks
+accessible on the iPod through the Music->Tracks/Albums/Artists/etc.
+menu.  In addition to the MPL there can be a number of normal
+playlists accessible through the Music->Playlists menu on the iPod.
+Tracks that are a member of one of these normal playlists must also be
+a member of the MPL.
+</para>
+<para>
+The Podcasts playlist is just another playlist with some internal
+flags set differently.  Tracks in the Podcasts playlist are not
+normally members of the MPL (so on the iPod they will only show up
+under the Podcasts menu). All tracks referenced must be in the
+<parameter>tracks</parameter> GList of the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>, however.
+</para>
+<para>
+Each track may have a thumbnail associated with it. You can retrieve a
+<link linkend="GdkPixmap"><type>GdkPixmap</type></link> of the thumbnail using <link linkend="itdb-artwork-get-pixbuf"><function>itdb_artwork_get_pixbuf()</function></link>.  A
+thumbnail can be added with <link linkend="itdb-track-set-thumbnails"><function>itdb_track_set_thumbnails()</function></link>.  A thumbnail
+can be removed with <link linkend="itdb-track-remove-thumbnails"><function>itdb_track_remove_thumbnails()</function></link>.  Please see the
+<link linkend="libgpod-Artwork">Artwork</link> section for more
+details on artwork related functions and structures.
+</para>
+<note>
+<para>
+Be aware that iTunes additionally stores the artwork as tags
+in the original music file. That's also from where the data is
+read when artwork is displayed in iTunes, and there can be more
+than one piece of artwork. libgpod does not store the artwork as
+tags in the original music file. As a consequence, if iTunes
+attempts to access the artwork, it will find none, and remove
+libgpod's artwork. Luckily, iTunes will only attempt to access
+the artwork if you select a track in iTunes.  To work around
+this, gtkpod keeps a list of the original filename of all
+artwork and silently adds the thumbnails if they were 'lost'.
+Your application might want to do something similar, or you can
+supply patches for (optionally!) adding tags to the original music
+files.
+</para>
+</note>
+<para>
+The <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>, <link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link> and <link linkend="Itdb-Track"><type>Itdb_Track</type></link> structures each
+have <parameter>userdata</parameter> and <parameter>usertype</parameter> fields that can be used by the
+application to store additional application-specific data. If
+<parameter>userdata</parameter> is a pointer to an external structure, you can supply a
+<link linkend="ItdbUserDataDuplicateFunc"><type>ItdbUserDataDuplicateFunc</type></link> and a <link linkend="ItdbUserDataDestroyFunc"><type>ItdbUserDataDestroyFunc</type></link> so that this
+data can be duplicated or freed automatically with a call to the
+library <link linkend="duplicate"><function>_duplicate()</function></link>/<link linkend="free"><function>_free()</function></link> functions.
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="Itdb-iTunesDB" role="struct"/>Itdb_iTunesDB</title>
+<indexterm><primary>Itdb_iTunesDB</primary></indexterm><programlisting>typedef struct {
+    GList *tracks;
+    GList *playlists;
+    gchar *filename;
+    Itdb_Device *device;
+    guint32 version;
+    guint64 id;
+    /* reserved for future use */
+    gint32 reserved_int1;
+    gint32 reserved_int2;
+    gpointer reserved1;
+    gpointer reserved2;
+    /* below is for use by application */
+    guint64 usertype;
+    gpointer userdata;
+    /* functions called to duplicate/free userdata */
+    ItdbUserDataDuplicateFunc userdata_duplicate;
+    ItdbUserDataDestroyFunc userdata_destroy;
+} Itdb_iTunesDB;
+</programlisting>
+<para>
+Structure representing an iTunes database</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>tracks</structfield>;</term>
+<listitem><simpara>             A list of tracks in the database (<link linkend="Itdb-Track"><type>Itdb_Track</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GList">GList</link>&nbsp;*<structfield>playlists</structfield>;</term>
+<listitem><simpara>          A list of playlists in the database (<link linkend="Itdb-Playlist"><type>Itdb_Playlist</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link>&nbsp;*<structfield>filename</structfield>;</term>
+<listitem><simpara>           The filename of the iTunesDB
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="Itdb-Device">Itdb_Device</link>&nbsp;*<structfield>device</structfield>;</term>
+<listitem><simpara>             iPod device info (<link linkend="Itdb-Device"><type>Itdb_Device</type></link>)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint32">guint32</link>&nbsp;<structfield>version</structfield>;</term>
+<listitem><simpara>            The version number of the iTunesDB
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>id</structfield>;</term>
+<listitem><simpara>                 A 64 bit id value for the iTunesDB
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int1</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint32">gint32</link>&nbsp;<structfield>reserved_int2</structfield>;</term>
+<listitem><simpara>      Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved1</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>reserved2</structfield>;</term>
+<listitem><simpara>          Reserved for future use
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="guint64">guint64</link>&nbsp;<structfield>usertype</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link>&nbsp;<structfield>userdata</structfield>;</term>
+<listitem><simpara>           For use by application
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDuplicateFunc">ItdbUserDataDuplicateFunc</link>&nbsp;<structfield>userdata_duplicate</structfield>;</term>
+<listitem><simpara> A function to duplicate <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="ItdbUserDataDestroyFunc">ItdbUserDataDestroyFunc</link>&nbsp;<structfield>userdata_destroy</structfield>;</term>
+<listitem><simpara>   A function to free <link linkend="userdata"><type>userdata</type></link>
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ItdbFileError" role="enum"/>enum ItdbFileError</title>
+<indexterm><primary>ItdbFileError</primary></indexterm><programlisting>typedef enum
+{
+    ITDB_FILE_ERROR_SEEK,
+    ITDB_FILE_ERROR_CORRUPT,
+    ITDB_FILE_ERROR_NOTFOUND,
+    ITDB_FILE_ERROR_RENAME,
+    ITDB_FILE_ERROR_ITDB_CORRUPT
+} ItdbFileError;
+</programlisting>
+<para>
+Error codes for iTunesDB file</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><anchor id="ITDB-FILE-ERROR-SEEK:CAPS" role="constant"/><literal>ITDB_FILE_ERROR_SEEK</literal></term>
+<listitem><simpara>         file corrupt: illegal seek occured
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-FILE-ERROR-CORRUPT:CAPS" role="constant"/><literal>ITDB_FILE_ERROR_CORRUPT</literal></term>
+<listitem><simpara>      file corrupt
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-FILE-ERROR-NOTFOUND:CAPS" role="constant"/><literal>ITDB_FILE_ERROR_NOTFOUND</literal></term>
+<listitem><simpara>     file not found
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-FILE-ERROR-RENAME:CAPS" role="constant"/><literal>ITDB_FILE_ERROR_RENAME</literal></term>
+<listitem><simpara>       file could not be renamed
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="ITDB-FILE-ERROR-ITDB-CORRUPT:CAPS" role="constant"/><literal>ITDB_FILE_ERROR_ITDB_CORRUPT</literal></term>
+<listitem><simpara> iTunesDB in memory corrupt
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-new" role="function"/>itdb_new ()</title>
+<indexterm><primary>itdb_new</primary></indexterm><programlisting><link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>*      itdb_new                            (void);</programlisting>
+<para>
+Creates a new Itdb_iTunesDB with the unknowns filled in to reasonable
+values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly created Itdb_iTunesDB to be freed with <link linkend="itdb-free"><function>itdb_free()</function></link>
+when it's no longer needed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-free" role="function"/>itdb_free ()</title>
+<indexterm><primary>itdb_free</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_free                           (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Free the memory taken by <parameter>itdb</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-parse" role="function"/>itdb_parse ()</title>
+<indexterm><primary>itdb_parse</primary></indexterm><programlisting><link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link>*      itdb_parse                          (const <link linkend="gchar">gchar</link> *mp,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Parse the Itdb_iTunesDB of the iPod located at <parameter>mp</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&nbsp;:</term>
+<listitem><simpara>     mount point of the iPod (eg "/mnt/ipod") in local encoding
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>  return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> struct holding the tracks and
+the playlists present on the iPod at <parameter>mp</parameter>, NULL if <parameter>mp</parameter> isn't an iPod mount
+point. If non-NULL, the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> is to be freed with <link linkend="itdb-free"><function>itdb_free()</function></link> when
+it's no longer needed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-write" role="function"/>itdb_write ()</title>
+<indexterm><primary>itdb_write</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_write                          (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Write out an iTunesDB. It reassigns unique IDs to all tracks. 
+An existing "Play Counts" file is renamed to "Play Counts.bak" if
+the export was successful.
+An existing "OTGPlaylistInfo" file is removed if the export was
+successful.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   the <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> to write to disk
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>  return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE on success, FALSE on error, in which case <parameter>error</parameter> is
+set accordingly.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-set-mountpoint" role="function" condition="since:0.1.3"/>itdb_set_mountpoint ()</title>
+<indexterm role="0.1.3"><primary>itdb_set_mountpoint</primary></indexterm><programlisting><link linkend="void">void</link>                itdb_set_mountpoint                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb,
+                                                         const <link linkend="gchar">gchar</link> *mp);</programlisting>
+<para>
+Sets the mountpoint of <parameter>itdb</parameter>. Always use this function to set the
+mountpoint of an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> as it will reset the number of
+available /iPod_Control/Music/F.. dirs. It doesn't attempt to parse
+an iPod database that may be present on the iPod at <parameter>mp</parameter>.
+</para>
+<para>
+<note><para>Calling this function removes the artwork in the
+<link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link> database using this <link linkend="Itdb-Device"><type>Itdb_Device</type></link> which was read from the
+iPod.</para></note>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara>   an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mp</parameter>&nbsp;:</term>
+<listitem><simpara>     new mount point
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-get-mountpoint" role="function" condition="since:0.4.0"/>itdb_get_mountpoint ()</title>
+<indexterm role="0.4.0"><primary>itdb_get_mountpoint</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>*        itdb_get_mountpoint                 (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Retrieve a reference to the mountpoint of <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the <parameter>itdb</parameter> mountpoint, this string shouldn't be freed
+nor modified
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-init-ipod" role="function" condition="since:0.4.0"/>itdb_init_ipod ()</title>
+<indexterm role="0.4.0"><primary>itdb_init_ipod</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>            itdb_init_ipod                      (const <link linkend="gchar">gchar</link> *mountpoint,
+                                                         const <link linkend="gchar">gchar</link> *model_number,
+                                                         const <link linkend="gchar">gchar</link> *ipod_name,
+                                                         <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Initialise an iPod device from scratch. The function attempts to
+create a blank database, complete with master playlist and device
+information as well as the directory structure required for the
+type of iPod.
+<parameter>model_number</parameter> is used to tell libgpod about the exact iPod
+model, which is needed for proper artwork writing. <parameter>model_number</parameter> can be
+found from the table returned by itdb_device_get_ipod_info_table (for
+example). On recent distros with iPods released
+in the last few years (starting with the iPod Color), it should be fine
+to pass in a NULL <parameter>model_number</parameter> while still getting artwork writing.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mountpoint</parameter>&nbsp;:</term>
+<listitem><simpara>   the iPod mountpoint
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model_number</parameter>&nbsp;:</term>
+<listitem><simpara> the iPod model number, can be NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ipod_name</parameter>&nbsp;:</term>
+<listitem><simpara>    the name to give to the iPod. Will be displayed in
+               gtkpod or itunes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>        return location for a <link linkend="GError"><type>GError</type></link> or NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE when successful, FALSE if a failure has occurred.
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since  0.4.0
+</para></refsect2>
+<refsect2>
+<title><anchor id="itdb-tracks-number" role="function"/>itdb_tracks_number ()</title>
+<indexterm><primary>itdb_tracks_number</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             itdb_tracks_number                  (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Counts the number of tracks stored in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of tracks in <parameter>itdb</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-tracks-number-nontransferred" role="function"/>itdb_tracks_number_nontransferred ()</title>
+<indexterm><primary>itdb_tracks_number_nontransferred</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             itdb_tracks_number_nontransferred   (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Counts the number of non-transferred tracks in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of tracks in <parameter>itdb</parameter> that haven't been transferred
+to the iPod yet (ie the number of <link linkend="Itdb-Track"><type>Itdb_Track</type></link> in which the transferred field
+is false)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="itdb-playlists-number" role="function"/>itdb_playlists_number ()</title>
+<indexterm><primary>itdb_playlists_number</primary></indexterm><programlisting><link linkend="guint32">guint32</link>             itdb_playlists_number               (<link linkend="Itdb-iTunesDB">Itdb_iTunesDB</link> *itdb);</programlisting>
+<para>
+Counts the number of playlists stored in <parameter>itdb</parameter></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>itdb</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="Itdb-iTunesDB"><type>Itdb_iTunesDB</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the number of playlists in <parameter>itdb</parameter> (including the master 
+playlist)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ItdbUserDataDestroyFunc" role="function"/>ItdbUserDataDestroyFunc ()</title>
+<indexterm><primary>ItdbUserDataDestroyFunc</primary></indexterm><programlisting><link linkend="void">void</link>                (*ItdbUserDataDestroyFunc)          (<link linkend="gpointer">gpointer</link> userdata);</programlisting>
+<para>
+Function called to free userdata</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>userdata</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="gpointer"><type>gpointer</type></link> to user data
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ItdbUserDataDuplicateFunc" role="function"/>ItdbUserDataDuplicateFunc ()</title>
+<indexterm><primary>ItdbUserDataDuplicateFunc</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>            (*ItdbUserDataDuplicateFunc)        (<link linkend="gpointer">gpointer</link> userdata);</programlisting>
+<para>
+Function called to duplicate userdata</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>userdata</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="gpointer"><type>gpointer</type></link> to user data
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A <link linkend="gpointer"><type>gpointer</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+
+<refsect1><refsect2 /><refsect2 /></refsect1>
+</refentry>
