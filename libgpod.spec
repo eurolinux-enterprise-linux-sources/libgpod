@@ -15,7 +15,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.2
-Release: 12%{?dist}
+Release: 9.1%{?dist}
 License: LGPLv2+
 Group: System Environment/Libraries
 URL: http://www.gtkpod.org/libgpod.html
@@ -211,16 +211,6 @@ echo "D /var/run/%{name} 0755 root root -" > \
 %endif
 
 %changelog
-* Thu Mar 09 2017 Kalev Lember <klember@redhat.com> - 0.8.2-12
-- Rebuilt for libplist 1.2
-- Related: #1430798
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.8.2-11
-- Mass rebuild 2014-01-24
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.8.2-10
-- Mass rebuild 2013-12-27
-
 * Mon Apr 08 2013 Daniel Mach <dmach@redhat.com> - 0.8.2-9.1
 - Rebuild for libimobiledevice
 
